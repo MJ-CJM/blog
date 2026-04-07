@@ -21,6 +21,7 @@ services:
     environment:
       - TZ=Asia/Shanghai
       - SQLITE_PATH=/app/data
+      - JWT_TOKEN=mj-cjm-blog-waline-jwt-secret-2026
 
 volumes:
   caddy_data:
