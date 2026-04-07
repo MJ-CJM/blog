@@ -1,7 +1,8 @@
 ---
 publishDate: 2026-04-07T05:00:00Z
-title: '从 Claude Code 到你的 Agent：12 个可复用架构模式'
+title: '05 | 从 Claude Code 到你的 Agent：12 个可复用架构模式'
 excerpt: '四篇拆解收敛为 12 个可直接迁移的 Agent 架构模式，附决策框架和速查表。'
+image: 'https://images.unsplash.com/photo-1509228468518-180dd4864904?w=1200&h=630&fit=crop'
 category: 'Claude Code 源码解析'
 tags:
   - Claude Code

@@ -1,7 +1,8 @@
 ---
 publishDate: 2026-04-07T01:00:00Z
-title: '逆向一个顶级 Agent：Claude Code 的全景架构'
+title: '01 | 逆向一个顶级 Agent：Claude Code 的全景架构'
 excerpt: '以 v2.1.88 恢复源码快照为主样本，拆解 Claude Code 的技术栈、五层架构与核心对话循环。'
+image: 'https://images.unsplash.com/photo-1555949963-aa79dcee981c?w=1200&h=630&fit=crop'
 category: 'Claude Code 源码解析'
 tags:
   - Claude Code

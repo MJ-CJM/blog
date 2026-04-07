@@ -1,7 +1,8 @@
 ---
 publishDate: 2026-04-07T06:00:00Z
-title: '源码里的产品路线图：Claude Code 隐藏功能全景解读'
+title: '06 | 源码里的产品路线图：Claude Code 隐藏功能全景解读'
 excerpt: '17 组 feature flag、24 条内部命令、4 层门控机制——源码里藏着一份尚未发布的产品路线图。'
+image: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1200&h=630&fit=crop'
 category: 'Claude Code 源码解析'
 tags:
   - Claude Code

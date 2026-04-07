@@ -2,6 +2,7 @@
 publishDate: 2026-04-07T00:00:00Z
 title: '拆解 Claude Code：逆向一个顶级 AI Agent 的架构与设计'
 excerpt: '基于 Claude Code v2.1.88 恢复源码快照，拆解其内部架构，提炼可复用的 Agent 工程模式。系列文章索引。'
+image: 'https://images.unsplash.com/photo-1677442136019-21780ecad995?w=1200&h=630&fit=crop'
 category: 'Claude Code 源码解析'
 tags:
   - Claude Code

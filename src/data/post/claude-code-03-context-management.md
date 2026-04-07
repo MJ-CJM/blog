@@ -1,7 +1,8 @@
 ---
 publishDate: 2026-04-07T03:00:00Z
-title: '有限窗口里的无限对话：上下文管理的工程艺术'
+title: '03 | 有限窗口里的无限对话：上下文管理的工程艺术'
 excerpt: '窗口溢出等于 Agent 失忆。深入 Claude Code 的五级渐进式压缩与 Cache-Aware Prompt 拓扑管理。'
+image: 'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=1200&h=630&fit=crop'
 category: 'Claude Code 源码解析'
 tags:
   - Claude Code

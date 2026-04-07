@@ -1,7 +1,8 @@
 ---
 publishDate: 2026-04-07T04:00:00Z
-title: '从单兵到军团：多智能体协作与可扩展架构'
+title: '04 | 从单兵到军团：多智能体协作与可扩展架构'
 excerpt: '当任务复杂到单个 Agent 装不下，深入 Coordinator/Worker 编排、Fork Cache 共享与 MCP/Plugin/Skill 三层扩展架构。'
+image: 'https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=1200&h=630&fit=crop'
 category: 'Claude Code 源码解析'
 tags:
   - Claude Code

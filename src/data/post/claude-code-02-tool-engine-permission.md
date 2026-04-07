@@ -1,7 +1,8 @@
 ---
 publishDate: 2026-04-07T02:00:00Z
-title: '让 LLM 安全地操作世界：工具引擎与权限管线'
+title: '02 | 让 LLM 安全地操作世界：工具引擎与权限管线'
 excerpt: 'Agent 能力的边界等于工具的边界。深入 Claude Code 的流式并发引擎与细粒度权限裁决链。'
+image: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1200&h=630&fit=crop'
 category: 'Claude Code 源码解析'
 tags:
   - Claude Code

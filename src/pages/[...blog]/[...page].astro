@@ -5,9 +5,9 @@ import Layout from '~/layouts/PageLayout.astro';
 import BlogList from '~/components/blog/List.astro';
 import Headline from '~/components/blog/Headline.astro';
 import Pagination from '~/components/blog/Pagination.astro';
-// import PostTags from "~/components/blog/Tags.astro";
+import PostTags from '~/components/blog/Tags.astro';
 
-import { blogListRobots, getStaticPathsBlogList } from '~/utils/blog';
+import { blogListRobots, getStaticPathsBlogList, fetchPosts } from '~/utils/blog';
 
 export const prerender = true;
 
@@ -20,8 +20,15 @@ type Props = InferGetStaticPropsType<typeof getStaticPaths>;
 const { page } = Astro.props as Props;
 const currentPage = page.currentPage ?? 1;
 
-// const allCategories = await findCategories();
-// const allTags = await findTags();
+const allPosts = await fetchPosts();
+const categoryMap = new Map<string, { slug: string; title: string }>();
+const tagMap = new Map<string, { slug: string; title: string }>();
+allPosts.forEach((post) => {
+  if (post.category?.slug) categoryMap.set(post.category.slug, post.category);
+  post.tags?.forEach((tag) => tagMap.set(tag.slug, tag));
+});
+const allCategories = Array.from(categoryMap.values());
+const allTags = Array.from(tagMap.values());
 
 const metadata = {
   title: `Blog${currentPage > 1 ? ` — Page ${currentPage}` : ''}`,
@@ -38,15 +45,13 @@ const metadata = {
 <Layout metadata={metadata}>
   <section class="px-6 sm:px-6 py-12 sm:py-16 lg:py-20 mx-auto max-w-4xl">
     <Headline
-      subtitle="A statically generated blog example with news, tutorials, resources and other interesting content related to AstroWind"
+      subtitle="云计算、AI Agent、架构设计与源码分析"
     >
-      The Blog
+      博客
     </Headline>
     <BlogList posts={page.data} />
     <Pagination prevUrl={page.url.prev} nextUrl={page.url.next} />
-    <!--
-      <PostTags tags={allCategories} class="mb-2" title="Search by Categories:" isCategory />
-      <PostTags tags={allTags}  title="Search by Tags:" />
-    -->
+    <PostTags tags={allCategories} class="mb-2" title="分类：" isCategory />
+    <PostTags tags={allTags} title="标签：" />
   </section>
 </Layout>
