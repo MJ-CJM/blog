@@ -1,0 +1,62 @@
+---
+import Layout from '~/layouts/PageLayout.astro';
+import Headline from '~/components/blog/Headline.astro';
+
+export const prerender = true;
+
+const metadata = { title: '搜索' };
+---
+
+<Layout metadata={metadata}>
+  <section class="px-6 sm:px-6 py-12 sm:py-16 lg:py-20 mx-auto max-w-4xl">
+    <Headline>搜索</Headline>
+    <div id="search"></div>
+  </section>
+</Layout>
+
+<style is:global>
+  :root {
+    --pagefind-ui-scale: 1;
+    --pagefind-ui-primary: rgb(59, 130, 246);
+    --pagefind-ui-text: rgb(15, 23, 42);
+    --pagefind-ui-background: rgb(255, 255, 255);
+    --pagefind-ui-border: rgb(229, 231, 235);
+    --pagefind-ui-tag: rgb(243, 244, 246);
+    --pagefind-ui-border-width: 1px;
+    --pagefind-ui-border-radius: 8px;
+    --pagefind-ui-font: 'Inter Variable', sans-serif;
+  }
+  .dark {
+    --pagefind-ui-primary: rgb(96, 165, 250);
+    --pagefind-ui-text: rgb(226, 232, 240);
+    --pagefind-ui-background: rgb(15, 23, 42);
+    --pagefind-ui-border: rgb(51, 65, 85);
+    --pagefind-ui-tag: rgb(30, 41, 59);
+  }
+</style>
+
+<script is:inline>
+  async function loadPagefind() {
+    var el = document.getElementById('search');
+    if (!el) return;
+    el.innerHTML = '';
+
+    var mod = await import('/pagefind/pagefind-ui.js');
+    new mod.PagefindUI({
+      element: '#search',
+      showSubResults: true,
+      translations: {
+        placeholder: '搜索文章...',
+        zero_results: '没有找到 [SEARCH_TERM] 的相关结果',
+        many_results: '找到 [COUNT] 条结果',
+        one_result: '找到 1 条结果',
+        searching: '搜索中...',
+      },
+    });
+  }
+
+  loadPagefind();
+  document.addEventListener('astro:after-swap', loadPagefind);
+</script>
+
+<link rel="stylesheet" href="/pagefind/pagefind-ui.css" />

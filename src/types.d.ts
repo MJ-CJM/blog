@@ -42,6 +42,9 @@ export interface Post {
 
   /**  */
   readingTime?: number;
+
+  /**  */
+  headings?: Array<{ depth: number; slug: string; text: string }>;
 }
 
 export interface Taxonomy {
