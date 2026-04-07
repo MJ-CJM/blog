@@ -1,0 +1,31 @@
+---
+export interface Props {
+  serverURL: string;
+}
+
+const { serverURL } = Astro.props;
+---
+
+<div id="waline-comment" class="mx-auto max-w-3xl px-4 py-8"></div>
+
+<link rel="stylesheet" href="https://unpkg.com/@waline/client@v3/dist/waline.css" />
+
+<script define:vars={{ serverURL }}>
+  async function initWaline() {
+    const { init } = await import('https://unpkg.com/@waline/client@v3/dist/waline.js');
+
+    init({
+      el: '#waline-comment',
+      serverURL: serverURL,
+      dark: 'html.dark',
+      emoji: ['https://unpkg.com/@waline/emojis@1.2.0/tw-emoji'],
+      locale: {
+        placeholder: '欢迎留言讨论...',
+      },
+    });
+  }
+
+  // 支持 Astro View Transitions
+  initWaline();
+  document.addEventListener('astro:after-swap', initWaline);
+</script>
