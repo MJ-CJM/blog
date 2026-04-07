@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   caddy:
     image: caddy:2-alpine
@@ -22,6 +20,7 @@ services:
       - /data/waline:/app/data
     environment:
       - TZ=Asia/Shanghai
+      - SQLITE_PATH=/app/data/waline.sqlite
 
 volumes:
   caddy_data:
