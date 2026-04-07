@@ -10,18 +10,6 @@ services:
       - /var/www/blog:/var/www/blog:ro
       - caddy_data:/data
       - caddy_config:/config
-    depends_on:
-      - waline
-
-  waline:
-    image: lizheming/waline:latest
-    restart: unless-stopped
-    volumes:
-      - /data/waline:/app/data
-    environment:
-      - TZ=Asia/Shanghai
-      - SQLITE_PATH=/app/data
-      - JWT_TOKEN=mj-cjm-blog-waline-jwt-secret-2026
 
 volumes:
   caddy_data:

@@ -1,27 +1,9 @@
 :80 {
-    # Waline API (UI calls /api/* directly without /waline prefix)
-    handle /api/* {
-        reverse_proxy waline:8360
-    }
+    root * /var/www/blog
+    file_server
 
-    # Waline under /waline path
-    handle_path /waline/* {
-        reverse_proxy waline:8360
-    }
+    @assets path /_astro/*
+    header @assets Cache-Control "public, max-age=31536000, immutable"
 
-    handle /waline {
-        rewrite * /
-        reverse_proxy waline:8360
-    }
-
-    # Static blog files
-    handle {
-        root * /var/www/blog
-        file_server
-
-        @assets path /_astro/*
-        header @assets Cache-Control "public, max-age=31536000, immutable"
-
-        try_files {path} {path}/ /index.html
-    }
+    try_files {path} {path}/ /index.html
 }

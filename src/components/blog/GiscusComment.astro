@@ -1,0 +1,35 @@
+---
+---
+
+<div id="giscus-comment" class="mx-auto max-w-3xl px-4 py-8"></div>
+
+<script>
+  function loadGiscus() {
+    const container = document.getElementById('giscus-comment');
+    if (!container) return;
+    container.innerHTML = '';
+
+    const theme = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
+
+    const script = document.createElement('script');
+    script.src = 'https://giscus.app/client.js';
+    script.setAttribute('data-repo', 'MJ-CJM/blog');
+    script.setAttribute('data-repo-id', '');
+    script.setAttribute('data-category', 'Announcements');
+    script.setAttribute('data-category-id', '');
+    script.setAttribute('data-mapping', 'pathname');
+    script.setAttribute('data-strict', '0');
+    script.setAttribute('data-reactions-enabled', '1');
+    script.setAttribute('data-emit-metadata', '0');
+    script.setAttribute('data-input-position', 'top');
+    script.setAttribute('data-theme', theme);
+    script.setAttribute('data-lang', 'zh-CN');
+    script.setAttribute('crossorigin', 'anonymous');
+    script.async = true;
+
+    container.appendChild(script);
+  }
+
+  loadGiscus();
+  document.addEventListener('astro:after-swap', loadGiscus);
+</script>
