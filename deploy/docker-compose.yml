@@ -20,7 +20,7 @@ services:
       - /data/waline:/app/data
     environment:
       - TZ=Asia/Shanghai
-      - SQLITE_PATH=/app/data/waline.sqlite
+      - SQLITE_PATH=/app/data
 
 volumes:
   caddy_data:
