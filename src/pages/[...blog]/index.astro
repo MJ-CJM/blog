@@ -51,7 +51,7 @@ const metadata = merge(
     {post.Content ? <post.Content /> : <Fragment set:html={post.content || ''} />}
   </SinglePost>
 
-  <WalineComment serverURL="/waline" />
+  <WalineComment />
 
   <ToBlogLink />
   <RelatedPosts post={post} />
