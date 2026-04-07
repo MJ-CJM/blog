@@ -1,0 +1,19 @@
+:80 {
+    root * /var/www/blog
+    file_server
+
+    handle_path /waline/* {
+        reverse_proxy waline:8360
+    }
+
+    handle /waline {
+        reverse_proxy waline:8360
+    }
+
+    # 静态资源长期缓存
+    @assets path /_astro/*
+    header @assets Cache-Control "public, max-age=31536000, immutable"
+
+    # SPA fallback
+    try_files {path} {path}/ /index.html
+}
