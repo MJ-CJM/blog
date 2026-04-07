@@ -1,4 +1,10 @@
 :80 {
+    # Waline API (UI calls /api/* directly without /waline prefix)
+    handle /api/* {
+        reverse_proxy waline:8360
+    }
+
+    # Waline under /waline path
     handle_path /waline/* {
         reverse_proxy waline:8360
     }
@@ -8,6 +14,7 @@
         reverse_proxy waline:8360
     }
 
+    # Static blog files
     handle {
         root * /var/www/blog
         file_server
