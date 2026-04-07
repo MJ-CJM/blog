@@ -8,7 +8,7 @@ metadata:
   title:
     default: MJ-CJM Blog
     template: '%s — MJ-CJM Blog'
-  description: '云计算、边缘计算、Kubernetes、Docker 技术博客'
+  description: 'AI Agent、LLM、云计算、边缘计算、Kubernetes、Docker 技术博客'
   robots:
     index: true
     follow: true
