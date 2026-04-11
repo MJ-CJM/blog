@@ -30,12 +30,13 @@ tags:
 
 | 篇 | 标题 | 关键词 |
 |---|---|---|
-| 01 | [逆向一个顶级 Agent：Claude Code 的全景架构](/claude-code-01-panoramic-architecture) | 逆向方法、技术栈、五层架构、环境搭建 |
-| 02 | [让 LLM 安全地操作世界：工具引擎与权限管线](/claude-code-02-tool-engine-permission) | Tool 体系、流式执行、权限裁决、按需加载 |
-| 03 | [有限窗口里的无限对话：上下文管理的工程艺术](/claude-code-03-context-management) | 五级压缩、Cache 拓扑、Token 预算 |
-| 04 | [从单兵到军团：多智能体协作与可扩展架构](/claude-code-04-multi-agent-extensibility) | Coordinator/Worker、Fork Cache、Agent 定义体系、Teams 集群、MCP/Plugin/Skill |
-| 05 | [从 Claude Code 到你的 Agent：12 个可复用架构模式](/claude-code-05-reusable-patterns) | 模式清单、决策框架、速查表 |
-| 加餐 | [源码里的产品路线图：Claude Code 隐藏功能全景解读](/claude-code-06-hidden-features-roadmap) | 隐藏功能、Feature Flag、门控机制、产品路线图 |
+| 01 | [逆向一个顶级 Agent：Claude Code 的全景架构](/claude-code/01-panoramic-architecture) | 逆向方法、技术栈、五层架构、环境搭建 |
+| 02 | [让 LLM 安全地操作世界：工具引擎与权限管线](/claude-code/02-tool-engine-permission) | Tool 体系、流式执行、权限裁决、按需加载 |
+| 03 | [有限窗口里的无限对话：上下文管理的工程艺术](/claude-code/03-context-management) | 五级压缩、Cache 拓扑、Token 预算 |
+| 04 | [从单兵到军团：多智能体协作与可扩展架构](/claude-code/04-multi-agent-extensibility) | Coordinator/Worker、Fork Cache、Agent 定义体系、Teams 集群、MCP/Plugin/Skill |
+| 05 | [从 Claude Code 到你的 Agent：12 个可复用架构模式](/claude-code/05-reusable-patterns) | 模式清单、决策框架、速查表 |
+| 加餐 | [源码里的产品路线图：Claude Code 隐藏功能全景解读](/claude-code/06-hidden-features-roadmap) | 隐藏功能、Feature Flag、门控机制、产品路线图 |
+| 07 | [让 Agent 拥有长期记忆：持久化记忆系统的工程实现](/claude-code/07-memory-system) | Memdir、记忆生命周期、自动提取、跨 Agent 同步 |
 
 ## 阅读建议
 
