@@ -1,6 +1,6 @@
 site:
   name: MJ-CJM Blog
-  site: 'http://localhost'
+  site: 'https://blog.mj-cjm.com'
   base: '/'
   trailingSlash: false
 
