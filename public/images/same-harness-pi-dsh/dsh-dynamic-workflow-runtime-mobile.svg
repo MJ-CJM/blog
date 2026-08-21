@@ -1,0 +1,127 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="1600" viewBox="0 0 900 1600" role="img" aria-labelledby="title desc">
+  <title id="title">DSH Dynamic Workflow 插件的真实实现结构，移动版</title>
+  <desc id="desc">Web 或根 Agent 通过 profiled-dynamic-workflow Skill 调用白名单 Tool。插件 Wrapper 负责解析 workflow 与 profile、验证结果契约并汇总 telemetry；官方 WorkerThread WorkflowEngine 在 delegation isolate 内执行受信任的 saved workflow script，脚本的 agent 调用通过 Agent Registry 和 Subagent 创建子 Agent。fast 路由到 Flash，deep 和 review 路由到 Pro；当前实验 Profile 决定 AgentFactory 使用 Stock、Adapter 或 Full Custom Loop。插件拥有 Wrapper、契约和 telemetry，官方拥有 WorkflowEngine，并提供 AbortSignal 与生命周期传播 seam。Full Custom 更换 Agent Loop 不等于更换 WorkflowEngine，同时需要自行实现 cancel、owner cleanup 和 dispose；Worker 与受信任脚本不是恶意代码安全沙箱。</desc>
+  <defs>
+    <marker id="arrow-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0L10 5L0 10z" fill="#7C3AED"/></marker>
+    <marker id="arrow-teal" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0L10 5L0 10z" fill="#0E7490"/></marker>
+    <marker id="arrow-gray" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0L10 5L0 10z" fill="#526079"/></marker>
+    <filter id="shadow" x="-12%" y="-12%" width="124%" height="136%"><feDropShadow dx="0" dy="7" stdDeviation="10" flood-color="#172033" flood-opacity="0.09"/></filter>
+    <style>.font{font-family:Inter,'Noto Sans SC','PingFang SC',system-ui,sans-serif}.ink{fill:#172033}.muted{fill:#526079}.white{fill:#FFFFFF}.mono{font-family:'SFMono-Regular',Consolas,'Liberation Mono',monospace}.line{fill:none;stroke-linecap:round;stroke-linejoin:round}</style>
+  </defs>
+  <rect width="900" height="1600" fill="#F7F9FC"/>
+  <g class="font ink">
+    <text x="450" y="58" text-anchor="middle" font-size="42" font-weight="760">DSH Dynamic Workflow 插件</text>
+    <text x="450" y="108" text-anchor="middle" font-size="34" font-weight="760">Wrapper 进入官方 WorkflowEngine</text>
+    <text x="450" y="148" text-anchor="middle" font-size="21" class="muted">插件管入口与契约；平台管 Workflow 调度与生命周期</text>
+
+    <!-- Entry -->
+    <rect x="45" y="180" width="810" height="179" rx="28" fill="#FFFFFF" stroke="#9DB7EB" stroke-width="3"/>
+    <rect x="45" y="180" width="810" height="60" rx="28" fill="#EAF1FF"/>
+    <path d="M45 210h810v30H45z" fill="#EAF1FF"/>
+    <circle cx="87" cy="211" r="12" fill="#2563EB"/>
+    <text x="118" y="220" font-size="27" font-weight="760" fill="#1D4ED8">Web / 根 Agent 调用入口</text>
+    <rect x="78" y="266" width="196" height="61" rx="18" fill="#F8FAFF" stroke="#9DB7EB" stroke-width="2"/>
+    <text x="176" y="302" text-anchor="middle" font-size="19" font-weight="760" fill="#1D4ED8">审查任务</text>
+    <path d="M274 296h30" stroke="#526079" stroke-width="3" marker-end="url(#arrow-gray)"/>
+    <rect x="316" y="258" width="220" height="77" rx="18" fill="#F0EBFF" stroke="#BDA8F4" stroke-width="2"/>
+    <text x="426" y="284" text-anchor="middle" font-size="17" font-weight="760" fill="#5B21B6">Skill</text>
+    <text x="426" y="310" text-anchor="middle" font-size="14" class="mono" fill="#6D28D9">profiled-dynamic-workflow</text>
+    <path d="M536 296h30" stroke="#526079" stroke-width="3" marker-end="url(#arrow-gray)"/>
+    <rect x="578" y="258" width="244" height="77" rx="18" fill="#F0EBFF" stroke="#7C3AED" stroke-width="2"/>
+    <text x="700" y="283" text-anchor="middle" font-size="17" font-weight="760" fill="#5B21B6">allowlisted Tool</text>
+    <text x="700" y="310" text-anchor="middle" font-size="14" class="mono" fill="#6D28D9">profiled_dynamic_workflow</text>
+    <line x1="450" y1="359" x2="450" y2="389" stroke="#7C3AED" stroke-width="5" marker-end="url(#arrow-purple)"/>
+
+    <!-- Wrapper -->
+    <rect x="45" y="404" width="810" height="229" rx="29" fill="#FFFFFF" stroke="#BDA8F4" stroke-width="3"/>
+    <rect x="45" y="404" width="810" height="62" rx="29" fill="#F0EBFF"/>
+    <path d="M45 436h810v30H45z" fill="#F0EBFF"/>
+    <circle cx="87" cy="437" r="12" fill="#7C3AED"/>
+    <text x="118" y="446" font-size="27" font-weight="760" fill="#5B21B6">插件 Wrapper</text>
+    <rect x="678" y="421" width="143" height="32" rx="16" fill="#7C3AED"/><text x="749" y="444" text-anchor="middle" font-size="15" font-weight="760" class="white">插件拥有</text>
+    <g text-anchor="middle">
+      <rect x="77" y="494" width="223" height="98" rx="19" fill="#F0EBFF" stroke="#BDA8F4" stroke-width="2"/>
+      <text x="188" y="526" font-size="20" font-weight="760" fill="#5B21B6">解析与准入</text>
+      <text x="188" y="555" font-size="15" class="muted">workflow · profile</text>
+      <text x="188" y="579" font-size="15" class="muted">allowlist</text>
+      <rect x="338" y="494" width="223" height="98" rx="19" fill="#F8FAFF" stroke="#CCD5E1" stroke-width="2"/>
+      <text x="449" y="526" font-size="20" font-weight="760">结果契约</text>
+      <text x="449" y="555" font-size="15" class="muted">结构校验：严格 3 项</text>
+      <text x="449" y="579" font-size="15" class="muted">× 4 个必填字段</text>
+      <rect x="599" y="494" width="223" height="98" rx="19" fill="#F8FAFF" stroke="#CCD5E1" stroke-width="2"/>
+      <text x="710" y="526" font-size="20" font-weight="760">Telemetry</text>
+      <text x="710" y="555" font-size="15" class="muted">routes · phases · retries</text>
+      <text x="710" y="579" font-size="15" class="muted">agent outcomes · result</text>
+    </g>
+    <text x="450" y="618" text-anchor="middle" font-size="16" font-weight="720" fill="#5B21B6">回传 Web 可展示的结构化报告</text>
+    <line x1="450" y1="633" x2="450" y2="664" stroke="#0E7490" stroke-width="5" marker-end="url(#arrow-teal)"/>
+
+    <!-- Official workflow engine -->
+    <rect x="45" y="679" width="810" height="356" rx="30" fill="#FFFFFF" stroke="#67C7DA" stroke-width="3"/>
+    <rect x="45" y="679" width="810" height="64" rx="30" fill="#E9F8FC"/>
+    <path d="M45 713h810v30H45z" fill="#E9F8FC"/>
+    <circle cx="87" cy="714" r="13" fill="#0E7490"/>
+    <text x="118" y="723" font-size="27" font-weight="760" fill="#0E7490">官方 Workflow Runtime</text>
+    <rect x="658" y="696" width="163" height="32" rx="16" fill="#0E7490"/><text x="739" y="719" text-anchor="middle" font-size="15" font-weight="760" class="white">平台拥有</text>
+    <g filter="url(#shadow)">
+      <rect x="82" y="774" width="736" height="77" rx="20" fill="#E9F8FC" stroke="#0E7490" stroke-width="3"/>
+      <text x="450" y="805" text-anchor="middle" font-size="23" font-weight="780" fill="#0E7490">WorkerThread WorkflowEngine</text>
+      <text x="450" y="833" text-anchor="middle" font-size="16" class="muted">delegation isolate 内负责阶段、并发、依赖与最低成功门槛</text>
+    </g>
+    <line x1="450" y1="851" x2="450" y2="875" stroke="#0E7490" stroke-width="4" marker-end="url(#arrow-teal)"/>
+    <rect x="82" y="888" width="736" height="116" rx="20" fill="#F8FAFF" stroke="#9DB7EB" stroke-width="2"/>
+    <text x="450" y="918" text-anchor="middle" font-size="20" font-weight="760" fill="#1D4ED8">trusted saved workflow script · multi-model-review</text>
+    <g text-anchor="middle" font-size="15" font-weight="720">
+      <rect x="118" y="941" width="132" height="38" rx="15" fill="#EAF1FF"/><text x="184" y="966" fill="#1D4ED8">3 并行</text>
+      <path d="M250 960h35" stroke="#526079" stroke-width="3" marker-end="url(#arrow-gray)"/>
+      <rect x="298" y="941" width="132" height="38" rx="15" fill="#F0EBFF"/><text x="364" y="966" fill="#5B21B6">3 挑战</text>
+      <path d="M430 960h35" stroke="#526079" stroke-width="3" marker-end="url(#arrow-gray)"/>
+      <rect x="478" y="941" width="132" height="38" rx="15" fill="#FFF0D5"/><text x="544" y="966" fill="#9A4C05">1 综合</text>
+      <rect x="638" y="941" width="144" height="38" rx="15" fill="#E9F8FC"/><text x="710" y="966" fill="#0E7490">agent()</text>
+    </g>
+    <text x="450" y="1022" text-anchor="middle" font-size="15" class="muted">agent() → spawn Subagent / Agent Registry</text>
+    <line x1="450" y1="1035" x2="450" y2="1065" stroke="#0E7490" stroke-width="5" marker-end="url(#arrow-teal)"/>
+
+    <!-- Factory and routes -->
+    <rect x="45" y="1080" width="810" height="281" rx="30" fill="#FFFFFF" stroke="#F1C77E" stroke-width="3"/>
+    <rect x="45" y="1080" width="810" height="62" rx="30" fill="#FFF0D5"/>
+    <path d="M45 1112h810v30H45z" fill="#FFF0D5"/>
+    <circle cx="87" cy="1113" r="12" fill="#D97706"/>
+    <text x="118" y="1122" font-size="27" font-weight="760" fill="#9A4C05">AgentFactory：Profile 选择子 Agent Loop</text>
+    <g text-anchor="middle">
+      <rect x="76" y="1172" width="215" height="84" rx="18" fill="#EAF1FF" stroke="#9DB7EB" stroke-width="2"/>
+      <text x="183" y="1203" font-size="19" font-weight="780" fill="#1D4ED8">Stock</text>
+      <text x="183" y="1232" font-size="15" class="muted">官方 Agent Loop</text>
+      <rect x="343" y="1172" width="215" height="84" rx="18" fill="#F0EBFF" stroke="#BDA8F4" stroke-width="2"/>
+      <text x="450" y="1203" font-size="19" font-weight="780" fill="#5B21B6">Adapter</text>
+      <text x="450" y="1232" font-size="15" class="muted">继承式 Agent Loop</text>
+      <rect x="609" y="1172" width="215" height="84" rx="18" fill="#FFF0D5" stroke="#F1C77E" stroke-width="2"/>
+      <text x="716" y="1203" font-size="18" font-weight="780" fill="#9A4C05">Full Custom</text>
+      <text x="716" y="1232" font-size="15" class="muted">完全自写 Agent Loop</text>
+    </g>
+    <rect x="76" y="1280" width="748" height="53" rx="19" fill="#F8FAFF" stroke="#CCD5E1" stroke-width="2"/>
+    <rect x="96" y="1290" width="241" height="33" rx="16" fill="#EAF1FF"/><text x="216" y="1313" text-anchor="middle" font-size="16" font-weight="720" fill="#1D4ED8">fast → Flash</text>
+    <rect x="352" y="1290" width="273" height="33" rx="16" fill="#E9F8FC"/><text x="488" y="1313" text-anchor="middle" font-size="16" font-weight="720" fill="#0E7490">deep / review → Pro</text>
+    <text x="803" y="1313" text-anchor="end" font-size="14" font-weight="720" fill="#9A4C05">换 Loop ≠ 换 Engine</text>
+    <text x="450" y="1352" text-anchor="middle" font-size="14" font-weight="720" fill="#9A4C05">Full Custom 自管 cancel / owner cleanup / dispose</text>
+    <line x1="450" y1="1361" x2="450" y2="1384" stroke="#0E7490" stroke-width="5" marker-end="url(#arrow-teal)"/>
+
+    <!-- Official base -->
+    <rect x="45" y="1399" width="810" height="123" rx="27" fill="#172033"/>
+    <text x="76" y="1430" font-size="19" font-weight="760" class="white">继续复用的官方 DSH 平台能力</text>
+    <g text-anchor="middle" font-size="13" font-weight="720" class="white">
+      <rect x="76" y="1448" width="115" height="46" rx="16" fill="#2563EB"/><text x="133" y="1476">Session</text>
+      <rect x="201" y="1448" width="115" height="46" rx="16" fill="#7C3AED"/><text x="258" y="1476">LLM / Provider</text>
+      <rect x="326" y="1448" width="115" height="46" rx="16" fill="#0E7490"/><text x="383" y="1476">Tool + Guard</text>
+      <rect x="451" y="1448" width="115" height="46" rx="16" fill="#2563EB"/><text x="508" y="1476">Web / UI</text>
+      <rect x="576" y="1448" width="115" height="46" rx="16" fill="#0E7490"/><text x="633" y="1476">Subagent</text>
+      <rect x="701" y="1448" width="115" height="46" rx="16" fill="#D97706"/><text x="758" y="1476">Signal seam</text>
+    </g>
+
+    <g font-size="15" font-weight="700">
+      <rect x="45" y="1537" width="810" height="38" rx="19" fill="#F0EBFF" stroke="#BDA8F4"/>
+      <text x="450" y="1562" text-anchor="middle" fill="#5B21B6">插件拥有 Wrapper / contract / telemetry；官方拥有 WorkflowEngine</text>
+      <text x="450" y="1593" text-anchor="middle" fill="#9A4C05">边界：trusted script + WorkerThread 不是 hostile-code sandbox</text>
+    </g>
+  </g>
+</svg>

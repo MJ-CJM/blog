@@ -1,0 +1,103 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">DeepSeek Harness 与 Pi 的 Workflow 调度权和 Agent Loop 控制权差异</title>
+  <desc id="desc">这是一张调度权切片，不是 DeepSeek Harness 的完整插件拓扑。DeepSeek Harness 的 WorkflowEngine、Session、LLM、Tool、Web 和 Agent Loop 都可由插件或 Bundle 组合；本次实验替换 Agent Loop 插件，继续复用官方 WorkflowEngine 等插件化服务。Pi Extension 则在子 Agent Loop 外自建 Workflow Runtime，而子 Pi 继续运行官方 Agent Loop。此图不比较产品优劣。</desc>
+  <defs>
+    <marker id="arrow-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0L10 5L0 10z" fill="#2563EB"/></marker>
+    <marker id="arrow-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0L10 5L0 10z" fill="#7C3AED"/></marker>
+    <marker id="arrow-orange" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0L10 5L0 10z" fill="#D97706"/></marker>
+    <filter id="shadow" x="-12%" y="-12%" width="124%" height="136%"><feDropShadow dx="0" dy="6" stdDeviation="9" flood-color="#172033" flood-opacity="0.09"/></filter>
+  </defs>
+  <rect width="1600" height="900" fill="#F7F9FC"/>
+  <g font-family="Inter, Noto Sans SC, PingFang SC, system-ui, sans-serif" fill="#172033">
+    <text x="800" y="64" text-anchor="middle" font-size="42" font-weight="760">同一 Workflow，调度权与 Agent Loop 控制权落在哪里？</text>
+    <text x="800" y="103" text-anchor="middle" font-size="21" fill="#526079">只展开 Workflow 编排与 Agent 执行循环；其他插件化服务折叠显示</text>
+
+    <rect x="45" y="140" width="480" height="535" rx="30" fill="#FFFFFF" stroke="#9DB7EB" stroke-width="3"/>
+    <rect x="45" y="140" width="480" height="72" rx="30" fill="#EAF1FF"/>
+    <path d="M45 182h480v30H45z" fill="#EAF1FF"/>
+    <circle cx="87" cy="176" r="13" fill="#2563EB"/>
+    <text x="118" y="184" font-size="27" font-weight="760" fill="#1D4ED8">DeepSeek Harness / DSH</text>
+    <rect x="87" y="236" width="395" height="43" rx="21" fill="#FFF0D5" stroke="#F1C77E"/>
+    <text x="284" y="265" text-anchor="middle" font-size="20" font-weight="700" fill="#9A4C05">↓ 插件接管点向 Harness 内部移动</text>
+
+    <g filter="url(#shadow)">
+      <rect x="85" y="310" width="400" height="126" rx="22" fill="#F0EBFF" stroke="#7C3AED" stroke-width="3"/>
+      <rect x="110" y="326" width="145" height="32" rx="16" fill="#7C3AED"/>
+      <text x="182" y="349" text-anchor="middle" font-size="17" font-weight="760" fill="#FFFFFF">自定义所有权</text>
+      <text x="285" y="393" text-anchor="middle" font-size="30" font-weight="780" fill="#5B21B6">Agent Loop</text>
+      <text x="285" y="421" text-anchor="middle" font-size="18" fill="#6D28D9">Plan → Act → Reflect → Finalize</text>
+    </g>
+    <line x1="285" y1="279" x2="285" y2="298" stroke="#D97706" stroke-width="4" marker-end="url(#arrow-orange)"/>
+
+    <text x="285" y="477" text-anchor="middle" font-size="20" font-weight="760" fill="#0E7490">本次复用的插件化服务（并非固定内核）</text>
+    <g font-size="18" font-weight="700" text-anchor="middle">
+      <rect x="85" y="495" width="400" height="56" rx="17" fill="#E9F8FC" stroke="#67C7DA" stroke-width="2"/>
+      <text x="285" y="530" fill="#0E7490">WorkflowEngine</text>
+      <rect x="85" y="568" width="88" height="52" rx="16" fill="#F8FAFF" stroke="#9DB7EB"/><text x="129" y="601">Session</text>
+      <rect x="182" y="568" width="88" height="52" rx="16" fill="#F8FAFF" stroke="#9DB7EB"/><text x="226" y="601">LLM</text>
+      <rect x="279" y="568" width="88" height="52" rx="16" fill="#F8FAFF" stroke="#9DB7EB"/><text x="323" y="601">Tool</text>
+      <rect x="376" y="568" width="109" height="52" rx="16" fill="#F8FAFF" stroke="#9DB7EB"/><text x="430" y="601">Web / UI</text>
+    </g>
+
+    <rect x="565" y="172" width="470" height="458" rx="30" fill="#FFFFFF" stroke="#CCD5E1" stroke-width="3"/>
+    <rect x="565" y="172" width="470" height="70" rx="30" fill="#EEF2F7"/>
+    <path d="M565 212h470v30H565z" fill="#EEF2F7"/>
+    <text x="800" y="215" text-anchor="middle" font-size="28" font-weight="760">共享 Workflow 结构</text>
+    <text x="800" y="268" text-anchor="middle" font-size="18" fill="#526079">相同任务目标可落到不同运行时所有权</text>
+    <g filter="url(#shadow)" text-anchor="middle">
+      <rect x="625" y="300" width="350" height="70" rx="20" fill="#EAF1FF" stroke="#9DB7EB" stroke-width="2"/>
+      <text x="800" y="343" font-size="24" font-weight="760" fill="#1D4ED8">3 × 独立评审</text>
+      <rect x="625" y="403" width="350" height="70" rx="20" fill="#F0EBFF" stroke="#BDA8F4" stroke-width="2"/>
+      <text x="800" y="446" font-size="24" font-weight="760" fill="#5B21B6">3 × 挑战复核</text>
+      <rect x="625" y="506" width="350" height="70" rx="20" fill="#E9F8FC" stroke="#67C7DA" stroke-width="2"/>
+      <text x="800" y="549" font-size="24" font-weight="760" fill="#0E7490">1 × 最终综合</text>
+    </g>
+    <g stroke="#526079" stroke-width="3" fill="none" stroke-dasharray="8 6">
+      <line x1="800" y1="370" x2="800" y2="393"/>
+      <line x1="800" y1="473" x2="800" y2="496"/>
+    </g>
+    <rect x="610" y="590" width="380" height="28" rx="14" fill="#FFF0D5"/>
+    <text x="800" y="610" text-anchor="middle" font-size="16" font-weight="700" fill="#9A4C05">工作流结构相同 ≠ 运行时所有权相同</text>
+
+    <rect x="1075" y="140" width="480" height="535" rx="30" fill="#FFFFFF" stroke="#BDA8F4" stroke-width="3"/>
+    <rect x="1075" y="140" width="480" height="72" rx="30" fill="#F0EBFF"/>
+    <path d="M1075 182h480v30h-480z" fill="#F0EBFF"/>
+    <circle cx="1117" cy="176" r="13" fill="#7C3AED"/>
+    <text x="1148" y="184" font-size="27" font-weight="760" fill="#5B21B6">Pi Coding Agent</text>
+    <rect x="1117" y="236" width="395" height="43" rx="21" fill="#FFF0D5" stroke="#F1C77E"/>
+    <text x="1314" y="265" text-anchor="middle" font-size="20" font-weight="700" fill="#9A4C05">↑ Extension 向 Agent Loop 外扩</text>
+
+    <g filter="url(#shadow)">
+      <rect x="1115" y="310" width="400" height="158" rx="22" fill="#F0EBFF" stroke="#7C3AED" stroke-width="3"/>
+      <rect x="1140" y="326" width="145" height="32" rx="16" fill="#7C3AED"/>
+      <text x="1212" y="349" text-anchor="middle" font-size="17" font-weight="760" fill="#FFFFFF">自定义所有权</text>
+      <text x="1315" y="393" text-anchor="middle" font-size="28" font-weight="780" fill="#5B21B6">Workflow Runtime</text>
+      <g font-size="17" font-weight="700" text-anchor="middle">
+        <rect x="1150" y="415" width="92" height="34" rx="12" fill="#FFFFFF"/><text x="1196" y="438">Worker</text>
+        <rect x="1253" y="415" width="105" height="34" rx="12" fill="#FFFFFF"/><text x="1305" y="438">node:vm</text>
+        <rect x="1369" y="415" width="111" height="34" rx="12" fill="#FFFFFF"/><text x="1424" y="438">子进程调度</text>
+      </g>
+    </g>
+    <line x1="1315" y1="468" x2="1315" y2="498" stroke="#7C3AED" stroke-width="4" marker-end="url(#arrow-purple)"/>
+    <rect x="1115" y="510" width="400" height="108" rx="22" fill="#E9F8FC" stroke="#67C7DA" stroke-width="2"/>
+    <rect x="1140" y="526" width="94" height="30" rx="15" fill="#0E7490"/>
+    <text x="1187" y="548" text-anchor="middle" font-size="16" font-weight="760" fill="#FFFFFF">复用</text>
+    <text x="1315" y="581" text-anchor="middle" font-size="25" font-weight="760" fill="#0E7490">子 Pi：官方 Agent Loop</text>
+    <text x="1315" y="607" text-anchor="middle" font-size="17" fill="#0E7490">Extension 调度子进程，不替换子 Pi 的 Loop</text>
+
+    <path d="M565 347H540V361H531" fill="none" stroke="#2563EB" stroke-width="4" stroke-dasharray="9 7" marker-end="url(#arrow-blue)"/>
+    <text x="548" y="329" text-anchor="end" font-size="16" font-weight="700" fill="#1D4ED8">交给 DSH</text>
+    <path d="M1035 347H1060V361H1069" fill="none" stroke="#7C3AED" stroke-width="4" stroke-dasharray="9 7" marker-end="url(#arrow-purple)"/>
+    <text x="1052" y="329" font-size="16" font-weight="700" fill="#5B21B6">交给 Pi</text>
+
+    <rect x="95" y="718" width="1410" height="112" rx="26" fill="#FFFFFF" stroke="#D6DEE9" stroke-width="2"/>
+    <line x1="800" y1="738" x2="800" y2="810" stroke="#D6DEE9" stroke-width="2"/>
+    <circle cx="145" cy="774" r="16" fill="#2563EB"/>
+    <text x="177" y="766" font-size="22" font-weight="760" fill="#1D4ED8">DSH</text>
+    <text x="177" y="800" font-size="21">替换 Agent Loop 插件，复用官方 WorkflowEngine 实现</text>
+    <circle cx="850" cy="774" r="16" fill="#7C3AED"/>
+    <text x="882" y="766" font-size="22" font-weight="760" fill="#5B21B6">Pi</text>
+    <text x="882" y="800" font-size="21">保留子 Agent Loop，Extension 自建外层 Workflow Runtime</text>
+    <text x="1535" y="878" text-anchor="end" font-size="17" fill="#6B7280">调度权切片，不是完整插件拓扑，也不是优劣比较</text>
+  </g>
+</svg>

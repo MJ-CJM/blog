@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">同一 saved workflow，比较控制权，不比较模型效果</title>
+  <desc id="desc">实验设计图。固定 saved workflow 脚本字节、正常成功路径下三评审到三挑战再到一次综合的三到三到一拓扑、Agent labels，以及 Review 至少成功两条和 Challenge 至少成功两条的基础计数门槛。失败降级时 Challenge 数可以是两条，因此三到三到一仅代表正常成功路径。DSH 使用官方 WorkflowEngine、DeepSeek V4 Flash 与 Pro 两条实际路由，并额外要求至少两条成功实际路由，再自动校验结构化结果；Pi 使用 Extension 自有 Workflow Runtime、同一个 GLM-5.2 的三档 thinking，路线多样性门槛为一，因此不构成多模型证明，并输出纯文本结果。实验比较运行时所有权、生命周期、失败语义和证据落点，不比较模型质量、性能与成本。</desc>
+  <defs>
+    <marker id="arrow-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0L10 5L0 10z" fill="#2563EB"/></marker>
+    <marker id="arrow-orange" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0L10 5L0 10z" fill="#D97706"/></marker>
+    <filter id="shadow" x="-12%" y="-20%" width="124%" height="150%"><feDropShadow dx="0" dy="6" stdDeviation="10" flood-color="#172033" flood-opacity="0.09"/></filter>
+    <style>
+      .font{font-family:Inter,'Noto Sans SC','PingFang SC',system-ui,sans-serif}.mono{font-family:'SFMono-Regular',Consolas,'Liberation Mono',monospace}
+      .ink{fill:#172033}.muted{fill:#526079}.white{fill:#FFFFFF}.line{fill:none;stroke-linecap:round;stroke-linejoin:round}
+      .label{font-size:16px;font-weight:760;letter-spacing:.06em}.body{font-size:19px}.small{font-size:16px}
+    </style>
+  </defs>
+  <rect width="1600" height="900" fill="#F7F9FC"/>
+  <g class="font ink">
+    <text x="800" y="56" text-anchor="middle" font-size="39" font-weight="790">同一 saved workflow，比较控制权，不比较模型效果</text>
+    <text x="800" y="94" text-anchor="middle" font-size="20" class="muted">固定脚本与流程结构，观察 DSH 插件与 Pi Extension 在哪一层接管运行语义</text>
+
+    <g filter="url(#shadow)">
+      <rect x="60" y="122" width="1480" height="116" rx="24" fill="#FFFFFF" stroke="#D9E1EE" stroke-width="2"/>
+      <rect x="60" y="122" width="210" height="116" rx="24" fill="#172033"/><path d="M246 122h24v116h-24z" fill="#172033"/>
+      <text x="92" y="162" class="label white">固定变量</text><text x="92" y="195" font-size="23" font-weight="760" class="white">两端保持一致</text><text x="92" y="219" class="small white" opacity=".72">CONTROLLED</text>
+      <rect x="298" y="147" width="270" height="66" rx="17" fill="#EAF1FF"/><circle cx="332" cy="180" r="18" fill="#2563EB"/><text x="332" y="187" text-anchor="middle" font-size="17" font-weight="800" class="white">1</text><text x="362" y="173" class="small" font-weight="720" fill="#1D4ED8">脚本输入</text><text x="362" y="198" class="body" font-weight="760">saved script 字节一致</text>
+      <rect x="590" y="147" width="260" height="66" rx="17" fill="#F1ECFE"/><circle cx="624" cy="180" r="18" fill="#7C3AED"/><text x="624" y="187" text-anchor="middle" font-size="17" font-weight="800" class="white">2</text><text x="654" y="173" class="small" font-weight="720" fill="#5B21B6">正常路径拓扑</text><text x="654" y="199" font-size="21" font-weight="790" class="mono">3 → 3 → 1</text>
+      <rect x="872" y="147" width="278" height="66" rx="17" fill="#E5F6F9"/><circle cx="906" cy="180" r="18" fill="#0E7490"/><text x="906" y="187" text-anchor="middle" font-size="17" font-weight="800" class="white">3</text><text x="936" y="173" class="small" font-weight="720" fill="#0E6078">任务身份</text><text x="936" y="198" class="body" font-weight="760">Agent labels 一致</text>
+      <rect x="1172" y="147" width="322" height="66" rx="17" fill="#FFF0D5"/><circle cx="1206" cy="180" r="18" fill="#D97706"/><text x="1206" y="187" text-anchor="middle" font-size="17" font-weight="800" class="white">4</text><text x="1236" y="173" class="small" font-weight="720" fill="#9A4C05">基础成功计数一致</text><text x="1236" y="198" font-size="18" font-weight="760">Review ≥ 2 · Challenge ≥ 2</text>
+    </g>
+
+    <g filter="url(#shadow)">
+      <rect x="60" y="260" width="1480" height="244" rx="26" fill="#FFFFFF" stroke="#D9E1EE" stroke-width="2"/>
+      <text x="92" y="296" class="label" fill="#526079">共同实验输入 · SAME SAVED WORKFLOW</text>
+      <rect x="92" y="317" width="448" height="150" rx="21" fill="#F5F2FE" stroke="#D8D0F5" stroke-width="2"/><text x="116" y="347" class="small" font-weight="760" fill="#5B21B6">PHASE 1 · 3 INDEPENDENT REVIEWS</text>
+      <rect x="116" y="369" width="124" height="66" rx="15" fill="#FFFFFF" stroke="#CFC1F5" stroke-width="2"/><circle cx="140" cy="402" r="15" fill="#7C3AED"/><text x="140" y="408" text-anchor="middle" font-size="14" font-weight="800" class="white">1</text><text x="164" y="398" font-size="15" font-weight="760" fill="#5B21B6">fast</text><text x="164" y="418" font-size="14" class="muted">review</text>
+      <rect x="255" y="369" width="124" height="66" rx="15" fill="#FFFFFF" stroke="#CFC1F5" stroke-width="2"/><circle cx="279" cy="402" r="15" fill="#7C3AED"/><text x="279" y="408" text-anchor="middle" font-size="14" font-weight="800" class="white">2</text><text x="303" y="398" font-size="15" font-weight="760" fill="#5B21B6">deep</text><text x="303" y="418" font-size="14" class="muted">review</text>
+      <rect x="394" y="369" width="124" height="66" rx="15" fill="#FFFFFF" stroke="#CFC1F5" stroke-width="2"/><circle cx="418" cy="402" r="15" fill="#7C3AED"/><text x="418" y="408" text-anchor="middle" font-size="14" font-weight="800" class="white">3</text><text x="442" y="398" font-size="15" font-weight="760" fill="#5B21B6">review</text><text x="442" y="418" font-size="14" class="muted">review</text>
+      <path d="M553 392h64" stroke="#2563EB" stroke-width="4" class="line" marker-end="url(#arrow-blue)"/><text x="585" y="378" text-anchor="middle" class="small" font-weight="760" fill="#1D4ED8">输出</text>
+      <rect x="635" y="317" width="448" height="150" rx="21" fill="#EAF7FA" stroke="#B9E1EA" stroke-width="2"/><text x="659" y="347" class="small" font-weight="760" fill="#0E6078">PHASE 2 · 3 CHALLENGES</text>
+      <rect x="659" y="369" width="124" height="66" rx="15" fill="#FFFFFF" stroke="#A7D8E3" stroke-width="2"/><circle cx="683" cy="402" r="15" fill="#0E7490"/><text x="683" y="408" text-anchor="middle" font-size="14" font-weight="800" class="white">4</text><text x="707" y="398" font-size="15" font-weight="760" fill="#0E6078">challenge</text><text x="707" y="418" font-size="14" class="muted">route 1</text>
+      <rect x="798" y="369" width="124" height="66" rx="15" fill="#FFFFFF" stroke="#A7D8E3" stroke-width="2"/><circle cx="822" cy="402" r="15" fill="#0E7490"/><text x="822" y="408" text-anchor="middle" font-size="14" font-weight="800" class="white">5</text><text x="846" y="398" font-size="15" font-weight="760" fill="#0E6078">challenge</text><text x="846" y="418" font-size="14" class="muted">route 2</text>
+      <rect x="937" y="369" width="124" height="66" rx="15" fill="#FFFFFF" stroke="#A7D8E3" stroke-width="2"/><circle cx="961" cy="402" r="15" fill="#0E7490"/><text x="961" y="408" text-anchor="middle" font-size="14" font-weight="800" class="white">6</text><text x="985" y="398" font-size="15" font-weight="760" fill="#0E6078">challenge</text><text x="985" y="418" font-size="14" class="muted">route 3</text>
+      <path d="M1096 392h64" stroke="#D97706" stroke-width="4" class="line" marker-end="url(#arrow-orange)"/><text x="1128" y="378" text-anchor="middle" class="small" font-weight="760" fill="#9A4C05">最低门槛</text>
+      <rect x="1178" y="317" width="330" height="150" rx="21" fill="#FFF5E3" stroke="#F1C47D" stroke-width="2"/><text x="1202" y="347" class="small" font-weight="760" fill="#9A4C05">PHASE 3 · 1 SYNTHESIS</text>
+      <rect x="1210" y="369" width="266" height="66" rx="16" fill="#FFFFFF" stroke="#F1C47D" stroke-width="2"/><circle cx="1240" cy="402" r="17" fill="#D97706"/><text x="1240" y="409" text-anchor="middle" font-size="15" font-weight="800" class="white">7</text><text x="1272" y="398" font-size="18" font-weight="780" fill="#9A4C05">final synthesis</text><text x="1272" y="420" font-size="14" class="muted">共识 · 分歧 · 最终结果</text>
+    </g>
+
+    <text x="800" y="535" text-anchor="middle" class="label" fill="#526079">两端实际执行配置 · OBSERVED DIFFERENCES</text>
+    <g filter="url(#shadow)">
+      <rect x="60" y="556" width="710" height="176" rx="24" fill="#FFFFFF" stroke="#B9E1EA" stroke-width="2"/><rect x="60" y="556" width="710" height="48" rx="24" fill="#0E7490"/><path d="M60 580h710v24H60z" fill="#0E7490"/><text x="88" y="588" font-size="22" font-weight="790" class="white">DSH 插件</text><text x="744" y="588" text-anchor="end" class="small white" opacity=".86">平台 runtime 执行</text>
+      <line x1="295" y1="620" x2="295" y2="708" stroke="#D9E1EE" stroke-width="2"/><line x1="522" y1="620" x2="522" y2="708" stroke="#D9E1EE" stroke-width="2"/>
+      <text x="88" y="641" class="small" font-weight="760" fill="#0E6078">RUNTIME</text><text x="88" y="671" class="body" font-weight="780">官方 WorkflowEngine</text><text x="88" y="698" class="small muted">插件调用平台调度</text>
+      <text x="320" y="641" class="small" font-weight="760" fill="#0E6078">ACTUAL ROUTES</text><text x="320" y="671" class="body" font-weight="780">V4 Flash + V4 Pro</text><text x="320" y="698" class="small muted">额外门禁：成功路线 ≥ 2</text>
+      <text x="548" y="641" class="small" font-weight="760" fill="#0E6078">RESULT CONTRACT</text><text x="548" y="671" class="body" font-weight="780">结果结构校验</text><text x="548" y="698" class="small muted">严格 3 项 × 4 字段</text>
+    </g>
+    <g filter="url(#shadow)">
+      <rect x="830" y="556" width="710" height="176" rx="24" fill="#FFFFFF" stroke="#D8D0F5" stroke-width="2"/><rect x="830" y="556" width="710" height="48" rx="24" fill="#7C3AED"/><path d="M830 580h710v24H830z" fill="#7C3AED"/><text x="858" y="588" font-size="22" font-weight="790" class="white">Pi Extension</text><text x="1514" y="588" text-anchor="end" class="small white" opacity=".86">扩展 runtime 执行</text>
+      <line x1="1065" y1="620" x2="1065" y2="708" stroke="#D9E1EE" stroke-width="2"/><line x1="1292" y1="620" x2="1292" y2="708" stroke="#D9E1EE" stroke-width="2"/>
+      <text x="858" y="641" class="small" font-weight="760" fill="#5B21B6">RUNTIME</text><text x="858" y="671" class="body" font-weight="780">Extension-owned</text><text x="858" y="698" class="small muted">自建 Workflow Runtime</text>
+      <text x="1090" y="641" class="small" font-weight="760" fill="#5B21B6">ACTUAL ROUTES</text><text x="1090" y="671" class="body" font-weight="780">GLM-5.2 × 3 档</text><text x="1090" y="698" class="small muted">门槛 = 1；非多模型证明</text>
+      <text x="1318" y="641" class="small" font-weight="760" fill="#5B21B6">RESULT CONTRACT</text><text x="1318" y="671" class="body" font-weight="780">plain-text 结果</text><text x="1318" y="698" class="small muted">Extension 持久化</text>
+    </g>
+
+    <rect x="60" y="758" width="930" height="108" rx="22" fill="#172033"/><text x="88" y="790" class="label white">可以比较 · 本文要回答</text>
+    <g font-size="18" font-weight="720"><rect x="88" y="807" width="190" height="36" rx="18" fill="#FFFFFF" fill-opacity=".13"/><text x="183" y="831" text-anchor="middle" class="white">运行时所有权</text><rect x="292" y="807" width="160" height="36" rx="18" fill="#FFFFFF" fill-opacity=".13"/><text x="372" y="831" text-anchor="middle" class="white">生命周期</text><rect x="466" y="807" width="178" height="36" rx="18" fill="#FFFFFF" fill-opacity=".13"/><text x="555" y="831" text-anchor="middle" class="white">失败语义</text><rect x="658" y="807" width="190" height="36" rx="18" fill="#FFFFFF" fill-opacity=".13"/><text x="753" y="831" text-anchor="middle" class="white">证据落点</text></g><path d="M926 811l11 11 22-25" fill="none" stroke="#67E8F9" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+    <rect x="1010" y="758" width="530" height="108" rx="22" fill="#FFF0D5" stroke="#F1C47D" stroke-width="2"/><text x="1038" y="790" class="label" fill="#9A4C05">不能比较 · 不做排名</text>
+    <g font-size="18" font-weight="720" fill="#9A4C05"><rect x="1038" y="807" width="142" height="36" rx="18" fill="#FFFFFF"/><text x="1109" y="831" text-anchor="middle">模型质量</text><rect x="1192" y="807" width="142" height="36" rx="18" fill="#FFFFFF"/><text x="1263" y="831" text-anchor="middle">性能速度</text><rect x="1346" y="807" width="142" height="36" rx="18" fill="#FFFFFF"/><text x="1417" y="831" text-anchor="middle">调用成本</text></g>
+  </g>
+</svg>
