@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Prime Agent 自我进化的能力边界</title>
+  <desc id="desc">Continual Harness 可以调整 Prompt、Memory、Skill 和 Subagent 配置，但不会直接训练模型权重、替换基础系统提示或修改 Prime Agent 产品源码，配置变化仍需独立评估。</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0L10 5L0 10z" fill="#D97706"/></marker>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="130%"><feDropShadow dx="0" dy="6" stdDeviation="9" flood-color="#172033" flood-opacity="0.09"/></filter>
+  </defs>
+  <rect width="1600" height="900" fill="#F7F9FC"/>
+  <g font-family="Inter, Noto Sans SC, PingFang SC, system-ui, sans-serif" fill="#172033">
+    <text x="800" y="70" text-anchor="middle" font-size="42" font-weight="750">Prime Agent 的“自我进化”改的是哪一层？</text>
+    <text x="800" y="108" text-anchor="middle" font-size="21" fill="#526079">调整 Harness 配置，不训练模型权重</text>
+
+    <rect x="55" y="145" width="900" height="495" rx="30" fill="#FFFFFF" stroke="#F1C77E" stroke-width="3"/>
+    <rect x="55" y="145" width="900" height="72" rx="30" fill="#FFF0D5"/>
+    <path d="M55 187h900v30H55z" fill="#FFF0D5"/>
+    <circle cx="102" cy="182" r="17" fill="#D97706"/><path d="M94 182l6 6 12-14" fill="none" stroke="#FFFFFF" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="137" y="191" font-size="29" font-weight="750" fill="#9A4C05">可以调整：Harness 配置</text>
+
+    <g filter="url(#shadow)">
+      <rect x="105" y="255" width="375" height="132" rx="22" fill="#FFF9EE" stroke="#F1C77E"/>
+      <circle cx="147" cy="297" r="25" fill="#D97706"/><text x="147" y="305" text-anchor="middle" font-size="20" font-weight="800" fill="#FFFFFF">1</text>
+      <text x="190" y="306" font-size="27" font-weight="750">Prompt</text><text x="147" y="351" font-size="20" fill="#526079">补充给模型的行为说明</text>
+      <rect x="530" y="255" width="375" height="132" rx="22" fill="#FFF9EE" stroke="#F1C77E"/>
+      <circle cx="572" cy="297" r="25" fill="#D97706"/><text x="572" y="305" text-anchor="middle" font-size="20" font-weight="800" fill="#FFFFFF">2</text>
+      <text x="615" y="306" font-size="27" font-weight="750">Memory</text><text x="572" y="346" font-size="19" fill="#526079">记录事实、决策、失败与偏好</text>
+      <rect x="105" y="425" width="375" height="132" rx="22" fill="#FFF9EE" stroke="#F1C77E"/>
+      <circle cx="147" cy="467" r="25" fill="#D97706"/><text x="147" y="475" text-anchor="middle" font-size="20" font-weight="800" fill="#FFFFFF">3</text>
+      <text x="190" y="476" font-size="27" font-weight="750">Skill</text><text x="147" y="521" font-size="20" fill="#526079">调整描述、Python 引用与参数契约</text>
+      <rect x="530" y="425" width="375" height="132" rx="22" fill="#FFF9EE" stroke="#F1C77E"/>
+      <circle cx="572" cy="467" r="25" fill="#D97706"/><text x="572" y="475" text-anchor="middle" font-size="20" font-weight="800" fill="#FFFFFF">4</text>
+      <text x="615" y="476" font-size="27" font-weight="750">Subagent</text><text x="572" y="521" font-size="20" fill="#526079">调整可复用的分工与调用时机</text>
+    </g>
+    <rect x="240" y="585" width="530" height="35" rx="17" fill="#FFE6BA"/><text x="505" y="609" text-anchor="middle" font-size="18" font-weight="700" fill="#9A4C05">默认写当前持久 Session；global 写入需显式请求</text>
+
+    <rect x="1010" y="168" width="535" height="435" rx="30" fill="#F1F4F8" stroke="#CCD5E1" stroke-width="3"/>
+    <circle cx="1060" cy="211" r="20" fill="#526079"/><rect x="1049" y="207" width="22" height="18" rx="4" fill="#FFFFFF"/><path d="M1054 207v-8a6 6 0 0112 0v8" fill="none" stroke="#FFFFFF" stroke-width="4"/>
+    <text x="1097" y="221" font-size="29" font-weight="750" fill="#374151">不会由 /refine 直接修改</text>
+    <g filter="url(#shadow)">
+      <rect x="1055" y="270" width="445" height="68" rx="18" fill="#FFFFFF" stroke="#CCD5E1"/><circle cx="1090" cy="304" r="10" fill="#6B7280"/><text x="1120" y="312" font-size="23" font-weight="700">基础模型权重</text>
+      <rect x="1055" y="360" width="445" height="68" rx="18" fill="#FFFFFF" stroke="#CCD5E1"/><circle cx="1090" cy="394" r="10" fill="#6B7280"/><text x="1120" y="402" font-size="23" font-weight="700">基础系统提示</text>
+      <rect x="1055" y="450" width="445" height="68" rx="18" fill="#FFFFFF" stroke="#CCD5E1"/><circle cx="1090" cy="484" r="10" fill="#6B7280"/><text x="1120" y="492" font-size="23" font-weight="700">Prime Agent 产品源码</text>
+    </g>
+    <rect x="1055" y="542" width="445" height="42" rx="12" fill="#FFF0F0" stroke="#B91C1C" stroke-width="2"/>
+    <text x="1277" y="570" text-anchor="middle" font-size="19" font-weight="750" fill="#B91C1C">配置发生变化 ≠ 已证明任务质量提升</text>
+
+    <text x="82" y="696" font-size="22" font-weight="750" fill="#9A4C05">一次 refinement 的受控路径</text>
+    <g font-size="18" font-weight="700">
+      <rect x="78" y="730" width="210" height="62" rx="16" fill="#FFFFFF" stroke="#D6DEE9"/><text x="183" y="768" text-anchor="middle">历史轨迹</text>
+      <rect x="352" y="730" width="210" height="62" rx="16" fill="#FFFFFF" stroke="#D6DEE9"/><text x="457" y="768" text-anchor="middle">候选 diff</text>
+      <rect x="626" y="720" width="290" height="82" rx="16" fill="#FFF9EE" stroke="#F1C77E"/><text x="771" y="752" text-anchor="middle">review / 类型 / 契约</text><text x="771" y="779" text-anchor="middle">与并发冲突检查</text>
+      <rect x="980" y="730" width="245" height="62" rx="16" fill="#FFFFFF" stroke="#D6DEE9"/><text x="1102" y="768" text-anchor="middle">历史与 rollback</text>
+      <rect x="1288" y="730" width="235" height="62" rx="16" fill="#FFF0D5" stroke="#D97706"/><text x="1405" y="768" text-anchor="middle" fill="#9A4C05">后续运行生效</text>
+    </g>
+    <g stroke="#D97706" stroke-width="4" fill="none" marker-end="url(#arrow)"><line x1="288" y1="761" x2="342" y2="761"/><line x1="562" y1="761" x2="616" y2="761"/><line x1="916" y1="761" x2="970" y2="761"/><line x1="1225" y1="761" x2="1278" y2="761"/></g>
+    <text x="1530" y="878" text-anchor="end" font-size="17" fill="#6B7280">概念示意，非性能或时序实测</text>
+  </g>
+</svg>

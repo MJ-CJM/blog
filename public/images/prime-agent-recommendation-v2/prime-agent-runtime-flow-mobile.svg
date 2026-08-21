@@ -1,0 +1,102 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="1600" viewBox="0 0 900 1600" role="img" aria-labelledby="title desc">
+  <title id="title">Prime Agent 长任务工作流</title>
+  <desc id="desc">父 Agent 通过 IPython 复用当前 Session 的状态，通过 rlm 创建独立子 Session。rlm 调用在任务接纳后返回句柄，而不是返回最终答案；子 Session 后续通过消息或文件返回结果。常规 daemon-backed 交互中，界面断开后 resident worker 可以继续运行。</desc>
+  <defs>
+    <marker id="arrow-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0L10 5L0 10z" fill="#2563EB"/></marker>
+    <marker id="arrow-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0L10 5L0 10z" fill="#7C3AED"/></marker>
+    <marker id="arrow-cyan" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0L10 5L0 10z" fill="#0891B2"/></marker>
+    <filter id="shadow" x="-12%" y="-12%" width="124%" height="136%"><feDropShadow dx="0" dy="7" stdDeviation="10" flood-color="#172033" flood-opacity="0.09"/></filter>
+  </defs>
+
+  <rect width="900" height="1600" fill="#F7F9FC"/>
+  <g font-family="Inter, Noto Sans SC, PingFang SC, system-ui, sans-serif" fill="#172033">
+    <text x="450" y="66" text-anchor="middle" font-size="47" font-weight="760">一次长任务可以怎样在</text>
+    <text x="450" y="122" text-anchor="middle" font-size="47" font-weight="760">Prime Agent 中展开？</text>
+
+    <rect x="45" y="158" width="810" height="92" rx="28" fill="#EAF1FF" stroke="#9DB7EB" stroke-width="3"/>
+    <circle cx="85" cy="195" r="10" fill="#2563EB"/>
+    <text x="112" y="204" font-size="25" font-weight="750" fill="#1D4ED8">常规 daemon-backed 交互</text>
+    <text x="112" y="234" font-size="24" fill="#1D4ED8">界面 detach 后，resident worker 可继续运行</text>
+
+    <rect x="40" y="280" width="390" height="1050" rx="28" fill="#F8FAFF" stroke="#D7E3FA" stroke-width="3"/>
+    <rect x="40" y="280" width="390" height="62" rx="28" fill="#2563EB"/>
+    <path d="M40 314h390v28H40z" fill="#2563EB"/>
+    <text x="235" y="322" text-anchor="middle" font-size="28" font-weight="760" fill="#FFFFFF">主 Session</text>
+
+    <rect x="470" y="280" width="390" height="1050" rx="28" fill="#FBFAFF" stroke="#E2D8FB" stroke-width="3"/>
+    <rect x="470" y="280" width="390" height="62" rx="28" fill="#7C3AED"/>
+    <path d="M470 314h390v28H470z" fill="#7C3AED"/>
+    <text x="665" y="322" text-anchor="middle" font-size="27" font-weight="760" fill="#FFFFFF">外部状态与子 Session</text>
+
+    <g filter="url(#shadow)">
+      <rect x="85" y="380" width="300" height="108" rx="20" fill="#FFFFFF" stroke="#CCD5E1" stroke-width="2"/>
+      <text x="235" y="425" text-anchor="middle" font-size="28" font-weight="750">用户目标</text>
+      <text x="235" y="462" text-anchor="middle" font-size="24" fill="#526079">审计陌生仓库</text>
+
+      <rect x="85" y="540" width="300" height="116" rx="20" fill="#FFFFFF" stroke="#CCD5E1" stroke-width="2"/>
+      <text x="235" y="586" text-anchor="middle" font-size="28" font-weight="750">父 Agent</text>
+      <text x="235" y="626" text-anchor="middle" font-size="24" fill="#526079">规划与拆解</text>
+
+      <rect x="85" y="726" width="300" height="116" rx="20" fill="#F0EBFF" stroke="#BDA8F4" stroke-width="3"/>
+      <text x="235" y="775" text-anchor="middle" font-size="28" font-weight="750" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" fill="#5B21B6">await rlm(task)</text>
+      <text x="235" y="814" text-anchor="middle" font-size="24" fill="#6D28D9">提交子任务</text>
+
+      <rect x="85" y="912" width="300" height="120" rx="20" fill="#EAF1FF" stroke="#9DB7EB" stroke-width="3"/>
+      <text x="235" y="960" text-anchor="middle" font-size="26" font-weight="750">RLMSpawnHandle</text>
+      <text x="235" y="1000" text-anchor="middle" font-size="24" fill="#1D4ED8">任务接纳句柄</text>
+
+      <rect x="85" y="1134" width="300" height="130" rx="20" fill="#FFFFFF" stroke="#CCD5E1" stroke-width="2"/>
+      <text x="235" y="1184" text-anchor="middle" font-size="28" font-weight="750">父 Agent 继续工作</text>
+      <text x="235" y="1224" text-anchor="middle" font-size="24" fill="#526079">分析、阅读与最终汇总</text>
+    </g>
+
+    <g stroke="#2563EB" stroke-width="5" fill="none" marker-end="url(#arrow-blue)">
+      <line x1="235" y1="488" x2="235" y2="528"/>
+      <line x1="235" y1="656" x2="235" y2="714"/>
+      <line x1="235" y1="842" x2="235" y2="900"/>
+      <line x1="235" y1="1032" x2="235" y2="1122"/>
+    </g>
+    <rect x="69" y="1052" width="332" height="44" rx="22" fill="#DBE8FF"/>
+    <text x="235" y="1083" text-anchor="middle" font-size="24" font-weight="700" fill="#1D4ED8">返回任务句柄，不是最终答案</text>
+
+    <g filter="url(#shadow)">
+      <rect x="510" y="500" width="310" height="190" rx="22" fill="#E9F8FC" stroke="#67C7DA" stroke-width="3"/>
+      <text x="665" y="550" text-anchor="middle" font-size="27" font-weight="750" fill="#0E7490">父 Session 的持久 IPython</text>
+      <rect x="532" y="580" width="82" height="48" rx="14" fill="#FFFFFF"/><text x="573" y="613" text-anchor="middle" font-size="24" fill="#0E7490">变量</text>
+      <rect x="624" y="580" width="82" height="48" rx="14" fill="#FFFFFF"/><text x="665" y="613" text-anchor="middle" font-size="24" fill="#0E7490">导入</text>
+      <rect x="716" y="580" width="82" height="48" rx="14" fill="#FFFFFF"/><text x="757" y="613" text-anchor="middle" font-size="24" fill="#0E7490">结果</text>
+      <text x="665" y="666" text-anchor="middle" font-size="24" fill="#0E7490">复用当前 Session 状态</text>
+
+      <rect x="510" y="726" width="310" height="306" rx="22" fill="#FFFFFF" stroke="#BDA8F4" stroke-width="3"/>
+      <text x="665" y="776" text-anchor="middle" font-size="27" font-weight="750" fill="#5B21B6">本次调用的 RLM 子 Session</text>
+      <rect x="540" y="808" width="250" height="52" rx="15" fill="#F0EBFF"/><text x="665" y="843" text-anchor="middle" font-size="24">示例：架构与依赖</text>
+      <rect x="540" y="876" width="250" height="52" rx="15" fill="#F0EBFF"/><text x="665" y="911" text-anchor="middle" font-size="24">一次调用 = 一个 child</text>
+      <rect x="540" y="944" width="250" height="52" rx="15" fill="#F0EBFF"/><text x="665" y="979" text-anchor="middle" font-size="24">其他任务需分别调用</text>
+
+      <rect x="510" y="1134" width="310" height="130" rx="22" fill="#FFFFFF" stroke="#CCD5E1" stroke-width="3"/>
+      <text x="665" y="1177" text-anchor="middle" font-size="27" font-weight="750">结果通道</text>
+      <text x="665" y="1214" text-anchor="middle" font-size="24" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">agent_message</text>
+      <text x="665" y="1247" text-anchor="middle" font-size="24">artifact file</text>
+    </g>
+
+    <line x1="385" y1="598" x2="498" y2="598" stroke="#0891B2" stroke-width="5" stroke-dasharray="10 8" marker-end="url(#arrow-cyan)"/>
+    <rect x="391" y="530" width="103" height="54" rx="18" fill="#F7F9FC"/>
+    <text x="443" y="555" text-anchor="middle" font-size="24" fill="#0E7490">调用并</text>
+    <text x="443" y="582" text-anchor="middle" font-size="24" fill="#0E7490">复用状态</text>
+
+    <line x1="385" y1="784" x2="498" y2="784" stroke="#7C3AED" stroke-width="5" marker-end="url(#arrow-purple)"/>
+    <rect x="393" y="713" width="98" height="58" rx="18" fill="#F7F9FC"/>
+    <text x="442" y="739" text-anchor="middle" font-size="24" fill="#5B21B6">创建并</text>
+    <text x="442" y="767" text-anchor="middle" font-size="24" fill="#5B21B6">独立运行</text>
+
+    <line x1="665" y1="1032" x2="665" y2="1122" stroke="#7C3AED" stroke-width="5" marker-end="url(#arrow-purple)"/>
+    <line x1="510" y1="1199" x2="397" y2="1199" stroke="#2563EB" stroke-width="5" stroke-dasharray="10 8" marker-end="url(#arrow-blue)"/>
+    <text x="454" y="1162" text-anchor="middle" font-size="24" fill="#1D4ED8">结果到达后</text>
+    <text x="454" y="1190" text-anchor="middle" font-size="24" fill="#1D4ED8">纳入综合</text>
+
+    <rect x="70" y="1375" width="760" height="104" rx="26" fill="#EEF2F7"/>
+    <text x="450" y="1417" text-anchor="middle" font-size="25" font-weight="700" fill="#526079">持久运行不等于无损续跑</text>
+    <text x="450" y="1455" text-anchor="middle" font-size="24" fill="#526079">worker 或 kernel 崩溃后的恢复是有界、best-effort 的</text>
+    <text x="450" y="1545" text-anchor="middle" font-size="24" fill="#6B7280">概念示意，非性能、并发上限或固定时序实测</text>
+  </g>
+</svg>
