@@ -1,0 +1,89 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="1600" viewBox="0 0 900 1600" role="img" aria-labelledby="title desc">
+  <title id="title">Prime Agent 默认模型工具面只有 IPython</title>
+  <desc id="desc">Prime Agent 默认只向模型注册一个 IPython 内建工具。当前 Session 内的变量、导入、函数和中间结果可跨多次 IPython 调用继续使用。模型在 kernel 中通过 Python、shell magic、Skill 和主机请求编排文件、项目命令、RLM 子 Session 等能力。配置覆盖和扩展可以改变可见工具集合。</desc>
+  <defs>
+    <marker id="arrow-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0 0L10 5L0 10z" fill="#2563EB"/>
+    </marker>
+    <filter id="shadow" x="-12%" y="-12%" width="124%" height="136%">
+      <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#172033" flood-opacity="0.10"/>
+    </filter>
+  </defs>
+
+  <rect width="900" height="1600" fill="#F7F9FC"/>
+  <g font-family="Inter, Noto Sans SC, PingFang SC, system-ui, sans-serif" fill="#172033">
+    <text x="450" y="62" text-anchor="middle" font-size="46" font-weight="760">默认模型工具面</text>
+    <text x="450" y="118" text-anchor="middle" font-size="46" font-weight="760">与背后能力</text>
+    <text x="450" y="163" text-anchor="middle" font-size="27" fill="#526079">文件、命令、Skill 与子 Agent 由 Python 统一编排</text>
+
+    <g filter="url(#shadow)">
+      <rect x="100" y="205" width="700" height="190" rx="30" fill="#172033"/>
+      <circle cx="210" cy="300" r="48" fill="#2563EB"/>
+      <circle cx="210" cy="285" r="14" fill="#FFFFFF"/>
+      <path d="M171 342c10-31 28-46 39-46s29 15 39 46" fill="none" stroke="#FFFFFF" stroke-width="11" stroke-linecap="round"/>
+      <text x="300" y="280" font-size="34" font-weight="760" fill="#FFFFFF">模型 / LLM</text>
+      <text x="300" y="326" font-size="26" fill="#D8E4FF">接收任务</text>
+      <text x="300" y="365" font-size="26" fill="#D8E4FF">选择模型可见工具</text>
+    </g>
+
+    <line x1="450" y1="395" x2="450" y2="450" stroke="#2563EB" stroke-width="6" marker-end="url(#arrow-blue)"/>
+    <rect x="332" y="404" width="236" height="40" rx="20" fill="#EAF1FF"/>
+    <text x="450" y="433" text-anchor="middle" font-size="24" font-weight="700" fill="#1D4ED8">默认只看到</text>
+
+    <g filter="url(#shadow)">
+      <rect x="70" y="465" width="760" height="470" rx="32" fill="#FFFFFF" stroke="#AFC6F4" stroke-width="3"/>
+      <rect x="70" y="465" width="760" height="86" rx="32" fill="#2563EB"/>
+      <path d="M70 519h760v32H70z" fill="#2563EB"/>
+      <text x="110" y="520" font-size="31" font-weight="760" fill="#FFFFFF">默认模型工具面</text>
+      <rect x="584" y="487" width="205" height="46" rx="23" fill="#FFFFFF" fill-opacity="0.18"/>
+      <text x="687" y="518" text-anchor="middle" font-size="24" font-weight="760" fill="#FFFFFF">1 个内建工具</text>
+
+      <rect x="135" y="590" width="630" height="240" rx="28" fill="#E9F8FC" stroke="#67C7DA" stroke-width="3"/>
+      <text x="450" y="650" text-anchor="middle" font-size="42" font-weight="800" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" fill="#0E7490">ipython</text>
+      <text x="450" y="699" text-anchor="middle" font-size="29" font-weight="700" fill="#0E7490">持久 IPython kernel</text>
+      <rect x="225" y="725" width="450" height="48" rx="24" fill="#FFFFFF"/>
+      <text x="450" y="758" text-anchor="middle" font-size="25" font-weight="700" fill="#0E7490">当前 Session 内共享 namespace</text>
+      <rect x="272" y="789" width="356" height="36" rx="10" fill="#D6F1F7"/>
+      <text x="450" y="815" text-anchor="middle" font-size="24" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" fill="#155E75">ipython({ code: "..." })</text>
+
+      <text x="450" y="871" text-anchor="middle" font-size="25" font-weight="700">当前 Session 内的变量、导入、函数和中间结果</text>
+      <text x="450" y="907" text-anchor="middle" font-size="25" fill="#526079">可跨多次 IPython 调用继续使用</text>
+    </g>
+
+    <line x1="450" y1="935" x2="450" y2="990" stroke="#2563EB" stroke-width="6" marker-end="url(#arrow-blue)"/>
+    <rect x="336" y="944" width="228" height="40" rx="20" fill="#EAF1FF"/>
+    <text x="450" y="973" text-anchor="middle" font-size="24" font-weight="700" fill="#1D4ED8">在 kernel 中编排</text>
+
+    <g filter="url(#shadow)">
+      <rect x="70" y="1005" width="760" height="435" rx="32" fill="#FFFFFF" stroke="#CCD5E1" stroke-width="3"/>
+      <text x="450" y="1061" text-anchor="middle" font-size="31" font-weight="760">由 Python 统一编排的能力</text>
+      <rect x="145" y="1084" width="610" height="48" rx="24" fill="#E9F8FC"/>
+      <text x="450" y="1117" text-anchor="middle" font-size="24" font-weight="700" fill="#0E7490">Python · %%bash · Skills · host.request</text>
+
+      <g font-size="25" font-weight="700">
+        <rect x="115" y="1160" width="310" height="72" rx="18" fill="#FFFFFF" stroke="#CCD5E1" stroke-width="2"/>
+        <text x="270" y="1205" text-anchor="middle">文件与数据</text>
+        <rect x="475" y="1160" width="310" height="72" rx="18" fill="#FFFFFF" stroke="#CCD5E1" stroke-width="2"/>
+        <text x="630" y="1205" text-anchor="middle">项目命令</text>
+
+        <rect x="115" y="1248" width="310" height="92" rx="18" fill="#FFFFFF" stroke="#CCD5E1" stroke-width="2"/>
+        <text x="270" y="1285" text-anchor="middle">Python / MCP</text>
+        <text x="270" y="1321" text-anchor="middle">Skill</text>
+        <rect x="475" y="1248" width="310" height="92" rx="18" fill="#F0EBFF" stroke="#C8B7F7" stroke-width="2"/>
+        <text x="630" y="1304" text-anchor="middle" fill="#5B21B6">RLM 子 Session</text>
+
+        <rect x="115" y="1356" width="310" height="72" rx="18" fill="#FFFFFF" stroke="#CCD5E1" stroke-width="2"/>
+        <text x="270" y="1383" text-anchor="middle" font-size="24">Goal / Agent</text>
+        <text x="270" y="1413" text-anchor="middle" font-size="24">Message</text>
+        <rect x="475" y="1356" width="310" height="72" rx="18" fill="#FFFFFF" stroke="#CCD5E1" stroke-width="2"/>
+        <text x="630" y="1383" text-anchor="middle" font-size="24">主机侧状态</text>
+        <text x="630" y="1413" text-anchor="middle" font-size="24">与策略</text>
+      </g>
+    </g>
+
+    <rect x="70" y="1460" width="760" height="86" rx="24" fill="#172033"/>
+    <text x="450" y="1495" text-anchor="middle" font-size="25" font-weight="750" fill="#FFFFFF">模型面对的是一个 IPython 工具</text>
+    <text x="450" y="1531" text-anchor="middle" font-size="25" font-weight="750" fill="#FFFFFF">运行时背后仍有文件、命令、Skill 与子 Agent 能力</text>
+    <text x="450" y="1580" text-anchor="middle" font-size="24" fill="#526079">默认架构示意；配置覆盖与 Extension 可改变工具集合</text>
+  </g>
+</svg>

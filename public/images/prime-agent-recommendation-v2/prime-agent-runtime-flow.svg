@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Prime Agent 长任务工作流</title>
+  <desc id="desc">父 Agent 在持久 IPython 中工作，通过 rlm 创建独立子 Session，接纳后立即返回句柄，子 Session 后续通过消息或文件返回结果，daemon 支持界面断开后继续运行。</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#2563EB"/></marker>
+    <marker id="arrow-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#7C3AED"/></marker>
+    <marker id="arrow-cyan" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#0891B2"/></marker>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="130%"><feDropShadow dx="0" dy="6" stdDeviation="9" flood-color="#172033" flood-opacity="0.09"/></filter>
+  </defs>
+  <rect width="1600" height="900" fill="#F7F9FC"/>
+  <g font-family="Inter, Noto Sans SC, PingFang SC, system-ui, sans-serif" fill="#172033">
+    <text x="800" y="68" text-anchor="middle" font-size="42" font-weight="750">一次长任务可以怎样在 Prime Agent 中展开？</text>
+    <rect x="40" y="112" width="1520" height="720" rx="30" fill="#FFFFFF" stroke="#9DB7EB" stroke-width="3"/>
+    <rect x="40" y="112" width="1520" height="58" rx="30" fill="#EAF1FF"/>
+    <path d="M40 140h1520v30H40z" fill="#EAF1FF"/>
+    <circle cx="78" cy="141" r="9" fill="#2563EB"/><text x="103" y="149" font-size="22" font-weight="750" fill="#1D4ED8">daemon / session worker：界面 detach 后，resident worker 可继续运行</text>
+
+    <rect x="72" y="195" width="1456" height="244" rx="22" fill="#F8FAFF" stroke="#D7E3FA" stroke-width="2"/>
+    <rect x="72" y="195" width="160" height="50" rx="22" fill="#2563EB"/>
+    <path d="M72 223h160v22H72z" fill="#2563EB"/>
+    <text x="152" y="227" text-anchor="middle" font-size="22" font-weight="750" fill="#FFFFFF">主 Session</text>
+
+    <g filter="url(#shadow)">
+      <rect x="95" y="280" width="190" height="92" rx="18" fill="#FFFFFF" stroke="#CCD5E1" stroke-width="2"/><text x="190" y="319" text-anchor="middle" font-size="20" font-weight="750">用户目标</text><text x="190" y="348" text-anchor="middle" font-size="18" fill="#526079">审计陌生仓库</text>
+      <rect x="345" y="280" width="205" height="92" rx="18" fill="#FFFFFF" stroke="#CCD5E1" stroke-width="2"/><text x="447" y="319" text-anchor="middle" font-size="20" font-weight="750">父 Agent</text><text x="447" y="348" text-anchor="middle" font-size="18" fill="#526079">规划与拆解</text>
+      <rect x="610" y="280" width="220" height="92" rx="18" fill="#F0EBFF" stroke="#BDA8F4" stroke-width="2"/><text x="720" y="320" text-anchor="middle" font-size="21" font-weight="750" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" fill="#5B21B6">await rlm(task)</text><text x="720" y="349" text-anchor="middle" font-size="17" fill="#6D28D9">提交子任务</text>
+      <rect x="890" y="280" width="245" height="92" rx="18" fill="#EAF1FF" stroke="#9DB7EB" stroke-width="2"/><text x="1012" y="315" text-anchor="middle" font-size="19" font-weight="750">RLMSpawnHandle</text><text x="1012" y="344" text-anchor="middle" font-size="17" fill="#1D4ED8">任务接纳句柄</text>
+      <rect x="1195" y="280" width="285" height="92" rx="18" fill="#FFFFFF" stroke="#CCD5E1" stroke-width="2"/><text x="1337" y="315" text-anchor="middle" font-size="20" font-weight="750">父 Agent 继续工作</text><text x="1337" y="344" text-anchor="middle" font-size="17" fill="#526079">分析、阅读与最终汇总</text>
+    </g>
+    <g stroke="#2563EB" stroke-width="4" fill="none" marker-end="url(#arrow)">
+      <line x1="285" y1="326" x2="335" y2="326"/><line x1="550" y1="326" x2="600" y2="326"/><line x1="830" y1="326" x2="880" y2="326"/><line x1="1135" y1="326" x2="1185" y2="326"/>
+    </g>
+    <rect x="852" y="389" width="320" height="34" rx="17" fill="#DBE8FF"/><text x="1012" y="412" text-anchor="middle" font-size="17" font-weight="700" fill="#1D4ED8">返回任务句柄，不是最终答案</text>
+
+    <rect x="72" y="468" width="1456" height="278" rx="22" fill="#FBFAFF" stroke="#E2D8FB" stroke-width="2"/>
+    <rect x="72" y="468" width="260" height="50" rx="22" fill="#7C3AED"/>
+    <path d="M72 496h260v22H72z" fill="#7C3AED"/>
+    <text x="202" y="500" text-anchor="middle" font-size="22" font-weight="750" fill="#FFFFFF">外部状态与子 Session</text>
+
+    <g filter="url(#shadow)">
+      <rect x="110" y="555" width="275" height="142" rx="20" fill="#E9F8FC" stroke="#8AD3E3" stroke-width="2"/>
+      <text x="247" y="590" text-anchor="middle" font-size="23" font-weight="750" fill="#0E7490">持久 IPython</text>
+      <rect x="138" y="614" width="68" height="42" rx="12" fill="#FFFFFF"/><text x="172" y="641" text-anchor="middle" font-size="17" fill="#0E7490">变量</text>
+      <rect x="214" y="614" width="68" height="42" rx="12" fill="#FFFFFF"/><text x="248" y="641" text-anchor="middle" font-size="17" fill="#0E7490">导入</text>
+      <rect x="290" y="614" width="68" height="42" rx="12" fill="#FFFFFF"/><text x="324" y="641" text-anchor="middle" font-size="17" fill="#0E7490">结果</text>
+
+      <rect x="560" y="535" width="480" height="180" rx="22" fill="#FFFFFF" stroke="#BDA8F4" stroke-width="2"/>
+      <text x="800" y="572" text-anchor="middle" font-size="22" font-weight="750" fill="#5B21B6">本次调用的 RLM 子 Session</text>
+      <rect x="600" y="594" width="400" height="34" rx="12" fill="#F0EBFF"/><text x="800" y="617" text-anchor="middle" font-size="18">任务示例：架构与依赖</text>
+      <rect x="600" y="638" width="400" height="34" rx="12" fill="#F0EBFF"/><text x="800" y="661" text-anchor="middle" font-size="18">一次 rlm() 调用 = 一个 child</text>
+      <rect x="600" y="678" width="400" height="30" rx="12" fill="#F0EBFF"/><text x="800" y="699" text-anchor="middle" font-size="17">其他子任务需要分别调用</text>
+
+      <rect x="1210" y="555" width="255" height="142" rx="20" fill="#FFFFFF" stroke="#CCD5E1" stroke-width="2"/>
+      <text x="1337" y="590" text-anchor="middle" font-size="22" font-weight="750">结果通道</text>
+      <rect x="1245" y="610" width="185" height="35" rx="12" fill="#EEF2F7"/><text x="1337" y="634" text-anchor="middle" font-size="18" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">agent_message</text>
+      <rect x="1245" y="654" width="185" height="35" rx="12" fill="#EEF2F7"/><text x="1337" y="678" text-anchor="middle" font-size="18">artifact file</text>
+    </g>
+    <path d="M447 372C430 470 350 505 290 545" fill="none" stroke="#0891B2" stroke-width="4" stroke-dasharray="9 7" marker-end="url(#arrow-cyan)"/>
+    <rect x="238" y="399" width="300" height="36" rx="18" fill="#F7F9FC"/>
+    <text x="388" y="424" text-anchor="middle" font-size="20" fill="#0E7490">通过 IPython 调用并复用状态</text>
+    <path d="M720 372C720 450 775 465 790 525" fill="none" stroke="#7C3AED" stroke-width="4" marker-end="url(#arrow-purple)"/>
+    <text x="756" y="465" font-size="17" fill="#5B21B6">创建并独立运行</text>
+    <line x1="1040" y1="625" x2="1200" y2="625" stroke="#7C3AED" stroke-width="4" marker-end="url(#arrow-purple)"/>
+    <path d="M1337 555C1337 460 1360 430 1340 382" fill="none" stroke="#2563EB" stroke-width="4" stroke-dasharray="9 7" marker-end="url(#arrow)"/>
+    <text x="1390" y="470" text-anchor="middle" font-size="17" fill="#1D4ED8"><tspan x="1390">结果到达后</tspan><tspan x="1390" dy="21">纳入综合</tspan></text>
+
+    <rect x="180" y="775" width="1240" height="42" rx="18" fill="#EEF2F7"/>
+    <text x="800" y="802" text-anchor="middle" font-size="19" font-weight="700" fill="#526079">持久运行不等于无损续跑：worker 或 kernel 崩溃后的恢复是有界、best-effort 的。</text>
+    <text x="1530" y="878" text-anchor="end" font-size="17" fill="#6B7280">概念示意，非性能或时序实测</text>
+  </g>
+</svg>

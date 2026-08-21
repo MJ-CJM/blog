@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">RLM、Prime Agent 与 Continual Harness 的关系</title>
+  <desc id="desc">RLM 提供操作外部上下文和递归调用的方法，Prime Agent 将其组合成持久运行时，运行轨迹再用于调整下一轮 Harness 配置。</desc>
+  <defs>
+    <marker id="arrow-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#2563EB"/></marker>
+    <marker id="arrow-orange" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#D97706"/></marker>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="130%"><feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#172033" flood-opacity="0.10"/></filter>
+  </defs>
+  <rect width="1600" height="900" fill="#F7F9FC"/>
+  <g font-family="Inter, Noto Sans SC, PingFang SC, system-ui, sans-serif" fill="#172033">
+    <text x="800" y="70" text-anchor="middle" font-size="42" font-weight="750">RLM、Prime Agent 与 Continual Harness 是什么关系？</text>
+    <text x="800" y="108" text-anchor="middle" font-size="21" fill="#526079">不是三个同义词，而是方法、运行时与可迭代配置三层</text>
+
+    <g filter="url(#shadow)">
+      <rect x="65" y="205" width="425" height="455" rx="28" fill="#FFFFFF" stroke="#D8D0F5" stroke-width="2"/>
+      <rect x="65" y="205" width="425" height="82" rx="28" fill="#7C3AED"/>
+      <path d="M65 257h425v30H65z" fill="#7C3AED"/>
+      <circle cx="116" cy="246" r="25" fill="#FFFFFF" fill-opacity="0.18"/>
+      <text x="116" y="254" text-anchor="middle" font-size="23" font-weight="800" fill="#FFFFFF">01</text>
+      <text x="157" y="255" font-size="29" font-weight="750" fill="#FFFFFF">RLM：一种方法</text>
+      <circle cx="108" cy="345" r="6" fill="#7C3AED"/><text x="132" y="353" font-size="23">把长上下文放到外部环境</text>
+      <circle cx="108" cy="411" r="6" fill="#7C3AED"/><text x="132" y="419" font-size="23">用 REPL / 程序按需读取与处理</text>
+      <circle cx="108" cy="477" r="6" fill="#7C3AED"/><text x="132" y="485" font-size="23">需要时递归调用 LM 处理子问题</text>
+      <rect x="99" y="553" width="357" height="70" rx="18" fill="#F1ECFE"/>
+      <text x="278" y="582" text-anchor="middle" font-size="19" font-weight="700" fill="#5B21B6">解决什么？</text>
+      <text x="278" y="607" text-anchor="middle" font-size="20" fill="#5B21B6">如何操作超长上下文</text>
+    </g>
+
+    <g filter="url(#shadow)">
+      <rect x="587" y="155" width="426" height="555" rx="30" fill="#FFFFFF" stroke="#BFD2FF" stroke-width="3"/>
+      <rect x="587" y="155" width="426" height="88" rx="30" fill="#2563EB"/>
+      <path d="M587 211h426v32H587z" fill="#2563EB"/>
+      <circle cx="641" cy="198" r="26" fill="#FFFFFF" fill-opacity="0.18"/>
+      <text x="641" y="206" text-anchor="middle" font-size="23" font-weight="800" fill="#FFFFFF">02</text>
+      <text x="684" y="207" font-size="29" font-weight="750" fill="#FFFFFF">Prime Agent：Runtime</text>
+      <rect x="635" y="285" width="330" height="65" rx="16" fill="#EAF1FF"/><text x="800" y="326" text-anchor="middle" font-size="23" font-weight="700" fill="#1D4ED8">持久 IPython 工作台</text>
+      <rect x="635" y="370" width="330" height="65" rx="16" fill="#EAF1FF"/><text x="800" y="411" text-anchor="middle" font-size="23" font-weight="700" fill="#1D4ED8">父 Session 与 RLM 子 Session</text>
+      <rect x="635" y="455" width="330" height="65" rx="16" fill="#EAF1FF"/><text x="800" y="496" text-anchor="middle" font-size="23" font-weight="700" fill="#1D4ED8">daemon、detach 与后台任务</text>
+      <rect x="635" y="540" width="330" height="65" rx="16" fill="#EAF1FF"/>
+      <text x="800" y="566" text-anchor="middle" font-size="19" font-weight="700" fill="#1D4ED8">消息、文件与有界、</text>
+      <text x="800" y="591" text-anchor="middle" font-size="19" font-weight="700" fill="#1D4ED8">best-effort 恢复</text>
+      <rect x="635" y="630" width="330" height="47" rx="16" fill="#DBE8FF"/><text x="800" y="660" text-anchor="middle" font-size="19" font-weight="700" fill="#1D4ED8">把方法组合成可运行的产品系统</text>
+    </g>
+
+    <g filter="url(#shadow)">
+      <rect x="1110" y="205" width="425" height="455" rx="28" fill="#FFFFFF" stroke="#F6D9A6" stroke-width="2"/>
+      <rect x="1110" y="205" width="425" height="82" rx="28" fill="#D97706"/>
+      <path d="M1110 257h425v30h-425z" fill="#D97706"/>
+      <circle cx="1161" cy="246" r="25" fill="#FFFFFF" fill-opacity="0.18"/>
+      <text x="1161" y="254" text-anchor="middle" font-size="23" font-weight="800" fill="#FFFFFF">03</text>
+      <text x="1202" y="255" font-size="28" font-weight="750" fill="#FFFFFF">Continual Harness</text>
+      <text x="1322" y="325" text-anchor="middle" font-size="23" font-weight="700" fill="#9A4C05">可迭代的作战手册</text>
+      <rect x="1150" y="352" width="150" height="54" rx="27" fill="#FFF0D5"/><text x="1225" y="386" text-anchor="middle" font-size="21" font-weight="700" fill="#9A4C05">Prompt</text>
+      <rect x="1345" y="352" width="150" height="54" rx="27" fill="#FFF0D5"/><text x="1420" y="386" text-anchor="middle" font-size="21" font-weight="700" fill="#9A4C05">Memory</text>
+      <rect x="1150" y="426" width="150" height="54" rx="27" fill="#FFF0D5"/><text x="1225" y="460" text-anchor="middle" font-size="21" font-weight="700" fill="#9A4C05">Skill</text>
+      <rect x="1345" y="426" width="150" height="54" rx="27" fill="#FFF0D5"/><text x="1420" y="460" text-anchor="middle" font-size="21" font-weight="700" fill="#9A4C05">Subagent</text>
+      <text x="1322" y="536" text-anchor="middle" font-size="20">根据历史轨迹提出配置调整</text>
+      <text x="1322" y="573" text-anchor="middle" font-size="20" font-weight="700" fill="#B45309">Prime 当前实现不训练模型权重</text>
+      <rect x="1150" y="602" width="345" height="38" rx="19" fill="#FFF0D5"/>
+      <text x="1322" y="627" text-anchor="middle" font-size="17" font-weight="700" fill="#9A4C05">默认写当前持久 Session；global 需显式请求</text>
+    </g>
+
+    <line x1="490" y1="405" x2="577" y2="405" stroke="#2563EB" stroke-width="4" marker-end="url(#arrow-blue)"/>
+    <text x="534" y="374" text-anchor="middle" font-size="17" fill="#526079"><tspan x="534">方法被</tspan><tspan x="534" dy="21">运行时采用</tspan></text>
+    <line x1="1013" y1="405" x2="1100" y2="405" stroke="#2563EB" stroke-width="4" stroke-dasharray="10 8" marker-end="url(#arrow-blue)"/>
+    <text x="1056" y="374" text-anchor="middle" font-size="17" fill="#526079"><tspan x="1056">运行轨迹</tspan><tspan x="1056" dy="21">成为输入</tspan></text>
+    <path d="M1320 672 C1260 748 985 753 902 700" fill="none" stroke="#D97706" stroke-width="4" stroke-dasharray="3 10" stroke-linecap="round" marker-end="url(#arrow-orange)"/>
+    <rect x="1001" y="718" width="238" height="38" rx="18" fill="#F7F9FC"/>
+    <text x="1120" y="744" text-anchor="middle" font-size="18" font-weight="700" fill="#9A4C05">已应用配置影响后续运行</text>
+
+    <rect x="150" y="803" width="1300" height="63" rx="18" fill="#172033"/>
+    <text x="800" y="843" text-anchor="middle" font-size="24" font-weight="750" fill="#FFFFFF">RLM 是方法，Prime Agent 是运行时，Continual Harness 是可迭代的作战手册。</text>
+    <text x="1530" y="888" text-anchor="end" font-size="17" fill="#6B7280">概念示意，非性能或时序实测</text>
+  </g>
+</svg>
