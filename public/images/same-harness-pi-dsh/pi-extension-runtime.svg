@@ -1,0 +1,127 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Pi Dynamic Workflow 插件的真实实现结构</title>
+  <desc id="desc">前台 dw-run 命令进入 Extension 自己实现的 DynamicWorkflowEngine。Engine 在 Worker 中用 node vm 解释受信任的 saved workflow script，脚本的 agent 调用为每个节点启动独立 Pi JSON 子进程；每个子进程继续使用官方 Pi Agent Loop，并通过 profile 接收 provider、model 与 thinking。Extension 负责并发、idle hard run 三层超时、SIGTERM 到 SIGKILL、state events result 持久化、前台 TUI 进度、Esc 取消与结果卡。Worker 和 node vm 不是恶意代码沙箱，Dynamic v1 的 active run 不支持跨进程 resume 或 cancel。</desc>
+  <defs>
+    <marker id="arrow-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0L10 5L0 10z" fill="#7C3AED"/></marker>
+    <marker id="arrow-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0L10 5L0 10z" fill="#2563EB"/></marker>
+    <marker id="arrow-gray" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0L10 5L0 10z" fill="#526079"/></marker>
+    <filter id="shadow" x="-12%" y="-12%" width="124%" height="136%"><feDropShadow dx="0" dy="6" stdDeviation="9" flood-color="#172033" flood-opacity="0.09"/></filter>
+  </defs>
+  <rect width="1600" height="900" fill="#F7F9FC"/>
+  <g font-family="Inter, Noto Sans SC, PingFang SC, system-ui, sans-serif" fill="#172033">
+    <text x="800" y="58" text-anchor="middle" font-size="42" font-weight="760">Pi Dynamic Workflow 插件：Extension 在官方 Agent Loop 外编排</text>
+    <text x="800" y="99" text-anchor="middle" font-size="21" fill="#526079">前台命令 → 自建 Workflow Runtime → 独立子 Pi 进程；子进程仍复用官方 Pi Agent Loop</text>
+
+    <g font-size="16" font-weight="700">
+      <rect x="566" y="116" width="18" height="18" rx="5" fill="#7C3AED"/><text x="594" y="131" fill="#5B21B6">Extension-owned</text>
+      <rect x="745" y="116" width="18" height="18" rx="5" fill="#0E7490"/><text x="773" y="131" fill="#0E7490">官方 Pi 复用</text>
+      <rect x="899" y="116" width="18" height="18" rx="5" fill="#D97706"/><text x="927" y="131" fill="#9A4C05">能力边界</text>
+    </g>
+
+    <rect x="45" y="160" width="255" height="512" rx="28" fill="#FFFFFF" stroke="#9DB7EB" stroke-width="3"/>
+    <rect x="45" y="160" width="255" height="70" rx="28" fill="#EAF1FF"/>
+    <path d="M45 200h255v30H45z" fill="#EAF1FF"/>
+    <circle cx="82" cy="195" r="12" fill="#2563EB"/>
+    <text x="108" y="203" font-size="25" font-weight="760" fill="#1D4ED8">前台入口</text>
+
+    <g filter="url(#shadow)">
+      <rect x="76" y="262" width="193" height="72" rx="19" fill="#F0EBFF" stroke="#BDA8F4" stroke-width="2"/>
+      <text x="172" y="307" text-anchor="middle" font-size="29" font-weight="780" fill="#5B21B6">/dw-run</text>
+    </g>
+    <rect x="76" y="365" width="193" height="245" rx="22" fill="#F8FAFF" stroke="#CCD5E1" stroke-width="2"/>
+    <rect x="93" y="384" width="159" height="38" rx="18" fill="#2563EB"/>
+    <text x="172" y="410" text-anchor="middle" font-size="18" font-weight="760" fill="#FFFFFF">Foreground TUI</text>
+    <g font-size="18" font-weight="700">
+      <circle cx="103" cy="459" r="7" fill="#2563EB"/><text x="121" y="465">实时阶段与 Agent 进度</text>
+      <circle cx="103" cy="500" r="7" fill="#7C3AED"/><text x="121" y="506">近期事件</text>
+      <circle cx="103" cy="541" r="7" fill="#D97706"/><text x="121" y="547">Esc 请求取消</text>
+      <circle cx="103" cy="582" r="7" fill="#0E7490"/><text x="121" y="588">完成后显示结果卡</text>
+    </g>
+    <rect x="83" y="627" width="179" height="27" rx="13" fill="#E9F8FC"/>
+    <text x="172" y="646" text-anchor="middle" font-size="15" font-weight="700" fill="#0E7490">命令等待结果，不转为后台任务</text>
+
+    <rect x="340" y="160" width="620" height="512" rx="28" fill="#FFFFFF" stroke="#BDA8F4" stroke-width="3"/>
+    <rect x="340" y="160" width="620" height="70" rx="28" fill="#F0EBFF"/>
+    <path d="M340 200h620v30H340z" fill="#F0EBFF"/>
+    <circle cx="381" cy="195" r="12" fill="#7C3AED"/>
+    <text x="410" y="203" font-size="25" font-weight="760" fill="#5B21B6">Extension-owned Runtime</text>
+    <rect x="767" y="179" width="158" height="31" rx="15" fill="#7C3AED"/>
+    <text x="846" y="201" text-anchor="middle" font-size="15" font-weight="760" fill="#FFFFFF">自定义所有权</text>
+
+    <g filter="url(#shadow)">
+      <rect x="443" y="259" width="414" height="78" rx="20" fill="#F0EBFF" stroke="#7C3AED" stroke-width="3"/>
+      <text x="650" y="293" text-anchor="middle" font-size="27" font-weight="780" fill="#5B21B6">DynamicWorkflowEngine</text>
+      <text x="650" y="320" text-anchor="middle" font-size="17" fill="#6D28D9">调度 saved workflow 的阶段、节点与依赖</text>
+    </g>
+    <line x1="300" y1="299" x2="431" y2="299" stroke="#2563EB" stroke-width="4" marker-end="url(#arrow-blue)"/>
+    <text x="315" y="282" font-size="16" font-weight="700" fill="#1D4ED8">启动并持续等待</text>
+
+    <rect x="379" y="381" width="217" height="104" rx="19" fill="#F8FAFF" stroke="#9DB7EB" stroke-width="2"/>
+    <text x="487" y="414" text-anchor="middle" font-size="20" font-weight="760" fill="#1D4ED8">saved workflow script</text>
+    <text x="487" y="444" text-anchor="middle" font-size="17" fill="#526079">固定脚本 + 任务输入</text>
+    <rect x="405" y="457" width="165" height="22" rx="11" fill="#EAF1FF"/>
+    <text x="487" y="473" text-anchor="middle" font-size="14" font-weight="700" fill="#1D4ED8">trusted script boundary</text>
+
+    <rect x="629" y="381" width="290" height="104" rx="19" fill="#FFF0D5" stroke="#F1C77E" stroke-width="2"/>
+    <text x="774" y="414" text-anchor="middle" font-size="23" font-weight="780" fill="#9A4C05">Worker + node:vm</text>
+    <text x="774" y="444" text-anchor="middle" font-size="17" fill="#7C4A10">解释并运行受信任脚本</text>
+    <text x="774" y="472" text-anchor="middle" font-size="15" font-weight="700" fill="#9A4C05">隔离主线程；不是 hostile-code sandbox</text>
+    <line x1="650" y1="337" x2="650" y2="367" stroke="#7C3AED" stroke-width="4" marker-end="url(#arrow-purple)"/>
+    <line x1="596" y1="433" x2="617" y2="433" stroke="#526079" stroke-width="4" marker-end="url(#arrow-gray)"/>
+
+    <rect x="484" y="535" width="332" height="90" rx="20" fill="#F0EBFF" stroke="#7C3AED" stroke-width="3"/>
+    <rect x="510" y="551" width="105" height="31" rx="15" fill="#7C3AED"/>
+    <text x="562" y="573" text-anchor="middle" font-size="16" font-weight="760" fill="#FFFFFF">script API</text>
+    <text x="650" y="609" text-anchor="middle" font-size="25" font-weight="780" fill="#5B21B6">agent()</text>
+    <line x1="774" y1="485" x2="774" y2="521" stroke="#7C3AED" stroke-width="4" marker-end="url(#arrow-purple)"/>
+    <text x="792" y="511" font-size="15" font-weight="700" fill="#5B21B6">每个 workflow 节点调用</text>
+
+    <rect x="1000" y="160" width="555" height="512" rx="28" fill="#FFFFFF" stroke="#67C7DA" stroke-width="3"/>
+    <rect x="1000" y="160" width="555" height="70" rx="28" fill="#E9F8FC"/>
+    <path d="M1000 200h555v30h-555z" fill="#E9F8FC"/>
+    <circle cx="1041" cy="195" r="12" fill="#0E7490"/>
+    <text x="1070" y="203" font-size="25" font-weight="760" fill="#0E7490">独立子 Pi 进程池</text>
+    <rect x="1343" y="179" width="177" height="31" rx="15" fill="#0E7490"/>
+    <text x="1431" y="201" text-anchor="middle" font-size="15" font-weight="760" fill="#FFFFFF">复用官方 Loop</text>
+
+    <path d="M816 580H972V289H990" fill="none" stroke="#7C3AED" stroke-width="4" marker-end="url(#arrow-purple)"/>
+    <text x="888" y="562" text-anchor="middle" font-size="16" font-weight="700" fill="#5B21B6">每次 agent()</text>
+    <text x="888" y="583" text-anchor="middle" font-size="16" font-weight="700" fill="#5B21B6">spawn 1 个进程</text>
+
+    <g filter="url(#shadow)">
+      <rect x="1036" y="258" width="483" height="94" rx="20" fill="#F8FAFF" stroke="#9DB7EB" stroke-width="2"/>
+      <rect x="1055" y="277" width="76" height="36" rx="18" fill="#2563EB"/><text x="1093" y="302" text-anchor="middle" font-size="16" font-weight="760" fill="#FFFFFF">fast</text>
+      <text x="1160" y="288" font-size="16" font-weight="700" fill="#526079">Pi JSON 子进程</text>
+      <rect x="1160" y="300" width="328" height="37" rx="16" fill="#E9F8FC" stroke="#67C7DA"/><text x="1324" y="325" text-anchor="middle" font-size="18" font-weight="760" fill="#0E7490">官方 Pi Agent Loop</text>
+
+      <rect x="1036" y="374" width="483" height="94" rx="20" fill="#F8FAFF" stroke="#BDA8F4" stroke-width="2"/>
+      <rect x="1055" y="393" width="76" height="36" rx="18" fill="#7C3AED"/><text x="1093" y="418" text-anchor="middle" font-size="16" font-weight="760" fill="#FFFFFF">deep</text>
+      <text x="1160" y="404" font-size="16" font-weight="700" fill="#526079">Pi JSON 子进程</text>
+      <rect x="1160" y="416" width="328" height="37" rx="16" fill="#E9F8FC" stroke="#67C7DA"/><text x="1324" y="441" text-anchor="middle" font-size="18" font-weight="760" fill="#0E7490">官方 Pi Agent Loop</text>
+
+      <rect x="1036" y="490" width="483" height="94" rx="20" fill="#F8FAFF" stroke="#67C7DA" stroke-width="2"/>
+      <rect x="1055" y="509" width="76" height="36" rx="18" fill="#0E7490"/><text x="1093" y="534" text-anchor="middle" font-size="16" font-weight="760" fill="#FFFFFF">review</text>
+      <text x="1160" y="520" font-size="16" font-weight="700" fill="#526079">Pi JSON 子进程</text>
+      <rect x="1160" y="532" width="328" height="37" rx="16" fill="#E9F8FC" stroke="#67C7DA"/><text x="1324" y="557" text-anchor="middle" font-size="18" font-weight="760" fill="#0E7490">官方 Pi Agent Loop</text>
+    </g>
+    <rect x="1047" y="610" width="461" height="38" rx="19" fill="#FFF0D5"/>
+    <text x="1277" y="636" text-anchor="middle" font-size="17" font-weight="700" fill="#9A4C05">profile 传入 provider · model · thinking</text>
+
+    <rect x="45" y="704" width="1510" height="122" rx="26" fill="#FFFFFF" stroke="#D6DEE9" stroke-width="2"/>
+    <text x="75" y="737" font-size="20" font-weight="760" fill="#5B21B6">Extension 自己承担的运行时职责</text>
+    <g text-anchor="middle" font-size="17" font-weight="700">
+      <rect x="75" y="756" width="238" height="46" rx="16" fill="#F0EBFF" stroke="#BDA8F4"/><text x="194" y="785" fill="#5B21B6">并发调度与节点依赖</text>
+      <rect x="329" y="756" width="285" height="46" rx="16" fill="#FFF0D5" stroke="#F1C77E"/><text x="471" y="785" fill="#9A4C05">idle / hard / run 三层 timeout</text>
+      <rect x="630" y="756" width="229" height="46" rx="16" fill="#FFF0D5" stroke="#F1C77E"/><text x="744" y="785" fill="#9A4C05">SIGTERM → SIGKILL</text>
+      <rect x="875" y="756" width="259" height="46" rx="16" fill="#EAF1FF" stroke="#9DB7EB"/><text x="1004" y="785" fill="#1D4ED8">state / events / result</text>
+      <rect x="1150" y="756" width="375" height="46" rx="16" fill="#E9F8FC" stroke="#67C7DA"/><text x="1337" y="785" fill="#0E7490">TUI 进度 · Esc · 最终结果卡</text>
+    </g>
+
+    <g font-size="16" font-weight="700">
+      <rect x="45" y="844" width="734" height="37" rx="18" fill="#FFF0D5" stroke="#F1C77E"/>
+      <path d="M67 854l10 17H57z" fill="#D97706"/><text x="91" y="869" fill="#7C4A10">Worker + node:vm 只隔离运行，不是 hostile-code sandbox</text>
+      <rect x="796" y="844" width="759" height="37" rx="18" fill="#FFF0D5" stroke="#F1C77E"/>
+      <path d="M818 854l10 17H808z" fill="#D97706"/><text x="842" y="869" fill="#7C4A10">Dynamic v1：active run 不支持跨进程 resume / cancel</text>
+    </g>
+  </g>
+</svg>

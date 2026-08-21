@@ -1,0 +1,2 @@
+3f757f7b41d1ae7e776b3b633ed47f56e660ae9b77889fb6afaf2cdaf040b051  dsh-harness-experiment-source-2026-08-20.zip
+a793bb2fe1ac3e7284d14bca646aec5846663b972f1b6f98a776e1071c5c2bf5  pi-harness-experiment-source-2026-08-20.zip
